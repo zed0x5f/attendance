@@ -1,0 +1,40 @@
+<div class="container">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
+    <select id="nameList" class="form-control" formControlName="nameList">
+    <option [ngValue]="null">select this if you dont see your name</option>
+    <option *ngFor="let e of listOfNames" [ngValue]="e">
+        {{e}}
+    </option>
+</select>
+<br>
+<br>
+<!-- make this an if block -->
+<label for="fNmae">First name</label><br>
+<input id="fName" class="form-control" type="text" formControlName="fName"><br>
+<label for="lName">Last name</label><br>
+<input id="lName" class="form-control" type="text" formControlName="lName">
+<br>
+<!-- multi date picker -->
+<div class="row d-flex w-100 mb-2">
+    <div class="col">WIP: toggle all days Mary halp me</div>
+    <div class="col-md"></div>
+    <div *ngFor="let meal of ['Breakfast', 'Lunch','Dinner']; let i = index" class="col justify-content-center">
+        <button (click)="toggleDay(i)" class="btn btn-primary">
+            All {{meal}}s
+        </button>
+    </div>
+</div>
+<div formArrayName="bld" class="py-2">
+<div *ngFor="let day of listOfDays; let i=index" class="row d-flex py-2 border-bottom">
+    <div class="col justify-content-center">{{day.date}}</div>
+    <div class="col justify-content-center">{{day.activityDay}}</div>
+    <!-- unroll this loop to simplfy things -->
+    <div *ngFor="let e of ['B','L','D']; let i2=index" class="col form-check">
+        <label for="bld-{{i*3+i2}}">{{e}}</label>
+        <input type="checkbox" name="" id="bd-{{i*3+i2}}" class="form-check-input big-checkbox" [formControlName]="i*3+i2">
+    </div>
+</div>
+</div>
+</form>
+</div>
+<p>{{form.value | json}}</p>
