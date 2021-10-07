@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
-
+//not being used firebase db
 @Injectable({
   providedIn: 'root'
 })

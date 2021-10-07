@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ranchattendance": {
+      "hosting": {
+        "attendance": [
+          "ranchattendance"
+        ]
+      }
+    }
+  }
+}
