@@ -19,6 +19,7 @@ const routes: Routes = [
   makeRoute('meal2', MealFormTemplateDrivenComponent),
   makeRoute('admin', AdminHomeComponent),
   makeRoute('admin/import-users', ImportUsersComponent),
+  
 ];
 
 @NgModule({
