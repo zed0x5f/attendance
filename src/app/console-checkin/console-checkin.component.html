@@ -1,8 +1,16 @@
-    <input #box
-      (keyup.enter)="update(box.value)"
-      (blur)="update(box.value)"
-      
-      >
+Scanner input
+<br />
+<input #box (keyup.enter)="update(box.value)" (blur)="update(box.value)" />
 
-
-    <p>{{value}}</p>
+<p>{{ value }}</p>
+<p>
+  <button (click)="enter()" type="button" class="btn btn-success">Enter</button>
+</p>
+<p>
+  <input #manual />
+</p>
+<p>
+  <button (click)="submit()" type="button" class="btn btn-success">
+    submit by name or number
+  </button>
+</p>

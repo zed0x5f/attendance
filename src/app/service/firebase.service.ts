@@ -21,14 +21,23 @@ export class FirebaseService {
     this.app = initializeApp(environment.firebase);
     this.db = getDatabase(this.app);
   }
+  checkIfValid(input:string){
+    if(input == "")
+      return false;
+    if(input)
+      return false;
+      return true;
+  }
 
-  uploadMembers(data: [[string, string, string]]|any) {
+  uploadMembers(data: [[string, string, string]] | any) {
     const myRef = ref(this.db, `/users/`);
     var upload: { [key: string]: any } = {};
     for (var i = 1; i < data.length; i++) {
       let [entityId, lastName, firstName] = data[i];
-      upload[entityId!]={lastName:lastName,firstName:firstName};
+      if (entityId != '' || entityId != undefined)
+        upload[entityId!] = { lastName: lastName, firstName: firstName };
     }
-    set(myRef,upload);
+    console.log(upload);
+    // set(myRef,upload);
   }
 }

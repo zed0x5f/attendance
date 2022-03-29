@@ -29,16 +29,17 @@ export class ImportUsersComponent implements OnInit {
         if (typeof csv === 'string') {
           var data = csv.split(/\r*\n/);
           data.forEach((i: string) => {
-            var cells:string[]=[]
-            i.split(',').forEach(j=>{
+            var cells: string[] = [];
+            var eyes = i.split(',');
+            eyes.slice(1);//remove headers
+            eyes.forEach((j) => {
               cells.push(j);
-            })
+            });
             this.allTextLines.push(cells);
           });
           console.log(this.allTextLines);
           this.fb.uploadMembers(this.allTextLines)
-        }
-        else{
+        } else {
           alert('csv file read error');
         }
       };

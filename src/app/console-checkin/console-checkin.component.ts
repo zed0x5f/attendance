@@ -14,4 +14,12 @@ export class ConsoleCheckinComponent implements OnInit {
   update(value: string) {
     this.value = value;
   }
+
+  enter(){
+    console.log("click")
+  }
+
+  submit(){
+    
+  }
 }
