@@ -21,12 +21,11 @@ export class FirebaseService {
     this.app = initializeApp(environment.firebase);
     this.db = getDatabase(this.app);
   }
-  checkIfValid(input:string){
-    if(input == "")
-      return false;
-    if(input)
-      return false;
-      return true;
+
+  regex = /\.|\*|\[|\]|\/|#|\$/;
+  checkIfValid(input: string) {
+    if (input == '') return false;
+    return !this.regex.test(input);
   }
 
   uploadMembers(data: [[string, string, string]] | any) {
@@ -34,10 +33,15 @@ export class FirebaseService {
     var upload: { [key: string]: any } = {};
     for (var i = 1; i < data.length; i++) {
       let [entityId, lastName, firstName] = data[i];
-      if (entityId != '' || entityId != undefined)
-        upload[entityId!] = { lastName: lastName, firstName: firstName };
+      let newGuy = { lastName: lastName, firstName: firstName };
+      if (this.checkIfValid(entityId)) upload[entityId!] = newGuy;
+      else {
+        //improper entity id
+        console.log(entityId);
+        console.log(newGuy);
+      }
     }
-    console.log(upload);
-    // set(myRef,upload);
+    // console.log(upload);
+    set(myRef, upload);
   }
 }

@@ -25,7 +25,7 @@ export class ImportUsersComponent implements OnInit {
       reader.readAsText(file);
       reader.onload = (e) => {
         let csv = reader.result;
-        console.log(csv);
+        // console.log(csv);
         if (typeof csv === 'string') {
           var data = csv.split(/\r*\n/);
           data.forEach((i: string) => {
@@ -37,7 +37,7 @@ export class ImportUsersComponent implements OnInit {
             });
             this.allTextLines.push(cells);
           });
-          console.log(this.allTextLines);
+          // console.log(this.allTextLines);
           this.fb.uploadMembers(this.allTextLines)
         } else {
           alert('csv file read error');

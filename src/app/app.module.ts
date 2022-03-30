@@ -9,6 +9,7 @@ import { MealAttendanceComponent } from './meal-attendance/meal-attendance.compo
 import { MealFormTemplateDrivenComponent } from './meal-form-template-driven/meal-form-template-driven.component';
 import { ConsoleCheckinComponent } from './console-checkin/console-checkin.component';
 import { FirebaseService } from './service/firebase.service';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FirebaseService } from './service/firebase.service';
     HomeComponent,
     MealAttendanceComponent,
     MealFormTemplateDrivenComponent,
-    ConsoleCheckinComponent
+    ConsoleCheckinComponent,
+    SigninComponent
   ],
   imports: [
     HttpClientModule,
