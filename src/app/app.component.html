@@ -1,6 +1,6 @@
-<div class="container">
+
 <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
-<nav>
+<nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
   <ul>
     <li><a routerLink="/" routerLinkActive="active">Home Component</a></li>
     <li><a routerLink="/meal" routerLinkActive="active">Reactive meal signup</a></li>
@@ -11,5 +11,10 @@
   </ul>
 </nav>
 <!-- The routed views render in the <router-outlet>-->
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
+
+<!-- 
+  user this has bootstrap code for user admin stuff
+  https://github1s.com/joaqcid/firebase-user-role-api/blob/master/client-app/src/app/users/users.module.ts -->

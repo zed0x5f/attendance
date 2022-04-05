@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminHomeComponent } from './admin/home/home.component';
-import { ImportUsersComponent } from './admin/import-users/import-users.component';
-import { ConsoleCheckinComponent } from './console-checkin/console-checkin.component';
-import { HomeComponent } from './home/home.component';
-import { MealAttendanceComponent } from './meal-attendance/meal-attendance.component';
-import { MealFormTemplateDrivenComponent } from './meal-form-template-driven/meal-form-template-driven.component';
-import { SigninComponent } from './signin/signin.component';
+import { AdminHomeComponent } from './pageComponents/admin/home/home.component';
+import { ImportUsersComponent } from './pageComponents/admin/import-users/import-users.component';
+import { ConsoleCheckinComponent } from './pageComponents/console-checkin/console-checkin.component';
+import { HomeComponent } from './pageComponents/home/home.component';
+import { MealAttendanceComponent } from './pageComponents/meal-attendance/meal-attendance.component';
+import { MealFormTemplateDrivenComponent } from './pageComponents/meal-form-template-driven/meal-form-template-driven.component';
+import { SigninComponent } from './pageComponents/signin/signin.component';
 
 //helper function
 let makeRoute = (pathI: string, componentI: any) => {

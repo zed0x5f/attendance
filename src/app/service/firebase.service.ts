@@ -29,7 +29,7 @@ export class FirebaseService {
   }
 
   uploadMembers(data: [[string, string, string]] | any) {
-    const myRef = ref(this.db, `/users/`);
+    const myRef = ref(this.db, `/people/`);
     var upload: { [key: string]: any } = {};
     for (var i = 1; i < data.length; i++) {
       let [entityId, lastName, firstName] = data[i];

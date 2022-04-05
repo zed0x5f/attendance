@@ -1,18 +1,21 @@
-import { Injectable, NgZone } from "@angular/core";
-import { Router } from "@angular/router";
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  onAuthStateChanged
-} from "firebase/auth";
-import { FirebaseService } from "./firebase.service";
+  onAuthStateChanged,
+} from 'firebase/auth';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
+  getAuth() {
+    return this.auth;
+  }
   userData: any; // Save logged in user data
   auth;
   provider;
@@ -20,31 +23,30 @@ export class AuthService {
   constructor(
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public firebase:FirebaseService
+    public firebase: FirebaseService
   ) {
     this.auth = getAuth(this.firebase.app);
     this.provider = new GoogleAuthProvider();
-    this.isLoggedIn = JSON.parse(localStorage.getItem("user") + "") !== 'null';
+    this.isLoggedIn = JSON.parse(localStorage.getItem('user') + '') !== 'null';
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
 
     onAuthStateChanged(this.auth, (user) => {
-      console.log("state has changed");
+      console.log('state has changed');
       if (user) {
         this.userData = user;
-        localStorage.setItem("user", JSON.stringify(this.userData));
+        localStorage.setItem('user', JSON.stringify(this.userData));
         this.isLoggedIn = true;
       } else {
-        localStorage.removeItem("user");
+        localStorage.removeItem('user');
         this.isLoggedIn = false;
       }
     });
   }
 
-
   // Sign in with email/password
   SignIn(email: string, password: string) {
-    console.log("signing in");
+    console.log('signing in');
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
@@ -95,7 +97,7 @@ export class AuthService {
   SignOut() {
     return this.auth.signOut().then(() => {
       // localStorage.removeItem('user');
-      this.router.navigate(["sign-in"]);
+      this.router.navigate(['sign-in']);
     });
   }
 }
