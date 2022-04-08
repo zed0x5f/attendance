@@ -12,7 +12,7 @@
 .*node_modules
 /functions/lib
 /functions/node_modules
-
+.angular
 
 # profiling files
 chrome-profiler-events*.json
