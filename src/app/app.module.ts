@@ -1,3 +1,4 @@
+import {environment} from '../environments/environment';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,7 +10,10 @@ import { MealAttendanceComponent } from './pageComponents/meal-attendance/meal-a
 import { MealFormTemplateDrivenComponent } from './pageComponents/meal-form-template-driven/meal-form-template-driven.component';
 import { ConsoleCheckinComponent } from './pageComponents/console-checkin/console-checkin.component';
 import { FirebaseService } from './service/firebase.service';
-import { SigninComponent } from './pageComponents/signin/signin.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SignInComponent } from './pageComponents/sign-in/sign-in.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -18,16 +22,19 @@ import { SigninComponent } from './pageComponents/signin/signin.component';
     MealAttendanceComponent,
     MealFormTemplateDrivenComponent,
     ConsoleCheckinComponent,
-    SigninComponent
+    SignInComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    NgbModule,
+    UsersModule
   ],
   providers: [FirebaseService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

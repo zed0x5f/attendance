@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   firebase: {
     apiKey: 'AIzaSyCpNtQ3s8A_HhId6dIvcs2s9B5yCPpaQq0',
     authDomain: 'ranchattendance.firebaseapp.com',

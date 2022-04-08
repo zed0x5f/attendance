@@ -6,7 +6,7 @@ import { ConsoleCheckinComponent } from './pageComponents/console-checkin/consol
 import { HomeComponent } from './pageComponents/home/home.component';
 import { MealAttendanceComponent } from './pageComponents/meal-attendance/meal-attendance.component';
 import { MealFormTemplateDrivenComponent } from './pageComponents/meal-form-template-driven/meal-form-template-driven.component';
-import { SigninComponent } from './pageComponents/signin/signin.component';
+import { UsersComponent } from './users/users/users.component';
 
 //helper function
 let makeRoute = (pathI: string, componentI: any) => {
@@ -20,7 +20,8 @@ const routes: Routes = [
   makeRoute('meal2', MealFormTemplateDrivenComponent),
   makeRoute('admin', AdminHomeComponent),
   makeRoute('admin/import-users', ImportUsersComponent),
-  makeRoute('signin',SigninComponent)
+  // makeRoute('signin',SigninComponent)
+  makeRoute('admin/users', UsersComponent),
 ];
 
 @NgModule({
