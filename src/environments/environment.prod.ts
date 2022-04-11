@@ -10,4 +10,5 @@ export const environment = {
     appId: '1:79199870382:web:6ce7b93013afe82064fc3f',
     measurementId: 'G-Y7QNRQM5YT',
   },
+  baseUrl: 'https://us-central1-ranchattendance.cloudfunctions.net/api',
 };

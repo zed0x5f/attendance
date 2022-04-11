@@ -11,5 +11,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors({ origin: true }));
 routesConfig(app);
+app.get('/test', (req, res, next) => {
+  res.status(200).json({ message: 'hello' });
+  return res;
+});
 
 export const api = firebaseFunctions.https.onRequest(app);

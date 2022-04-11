@@ -38,7 +38,9 @@ export class ImportUsersComponent implements OnInit {
             this.allTextLines.push(cells);
           });
           // console.log(this.allTextLines);
-          this.fb.uploadMembers(this.allTextLines)
+          this.fb.uploadMembers(this.allTextLines).subscribe(res=>{
+            console.log(res)
+          })
         } else {
           alert('csv file read error');
         }

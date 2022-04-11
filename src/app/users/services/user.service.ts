@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 export type CreateUserRequest = {
   displayName: string;
@@ -16,12 +17,10 @@ export type UpdateUserRequest = { uid: string } & CreateUserRequest;
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'https://us-central1-joaq-lab.cloudfunctions.net/api/users'; //todo update with correct url
-
   constructor(private http: HttpClient) {}
 
   get users$(): Observable<User[]> {
-    return this.http.get<{ users: User[] }>(`${this.baseUrl}`).pipe(
+    return this.http.get<{ users: User[] }>(`${environment.baseUrl}`).pipe(
       map((result: { users: User[] }) => {
         return result.users;
       })
@@ -29,7 +28,7 @@ export class UserService {
   }
 
   user$(id: string): Observable<User> {
-    return this.http.get<{ user: User }>(`${this.baseUrl}/${id}`).pipe(
+    return this.http.get<{ user: User }>(`${environment.baseUrl}/${id}`).pipe(
       map((result: { user: User }) => {
         return result.user;
       })
@@ -37,12 +36,12 @@ export class UserService {
   }
 
   create(user: CreateUserRequest) {
-    return this.http.post(`${this.baseUrl}`, user).pipe(map((_) => {}));
+    return this.http.post(`${environment.baseUrl}`, user).pipe(map((_) => {}));
   }
 
   edit(user: UpdateUserRequest) {
     return this.http
-      .patch(`${this.baseUrl}/${user.uid}`, user)
+      .patch(`${environment.baseUrl}/${user.uid}`, user)
       .pipe(map((_) => {}));
   }
 }

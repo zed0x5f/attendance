@@ -1,11 +1,7 @@
 import { Request, Response } from 'express';
 import * as admin from 'firebase-admin';
 
-export async function isAuthenticated(
-  req: Request,
-  res: Response,
-  next: Function
-) {
+export async function isAuthenticated(req: Request, res: Response, next: any) {
   const { authorization } = req.headers;
 
   if (!authorization) return res.status(401).send({ message: 'Unauthorized' });
@@ -31,7 +27,8 @@ export async function isAuthenticated(
       email: decodedToken.email,
     };
     return next();
-  } catch (err:any) {
+  } catch (er) {
+    const err: any = er;
     console.error(`${err.code} -  ${err.message}`);
     return res.status(401).send({ message: 'Unauthorized' });
   }

@@ -3,7 +3,7 @@ import { all, create, get, patch, remove } from './controller';
 import { isAuthenticated } from '../auth/authenticated';
 import { isAuthorized } from '../auth/authorized';
 
-export function routesConfig(app: Application) { 
+export function routesConfig(app: Application) {
   app.post(
     '/users',
     isAuthenticated,
@@ -32,5 +32,5 @@ export function routesConfig(app: Application) {
     isAuthenticated,
     isAuthorized({ hasRole: ['admin', 'manager'] }),
     remove,
-  ]);
+  ]);  
 }

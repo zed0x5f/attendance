@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   getDatabase,
@@ -17,7 +18,7 @@ import { environment } from 'src/environments/environment';
 export class FirebaseService {
   app;
   db;
-  constructor() {
+  constructor(private http: HttpClient) {
     this.app = initializeApp(environment.firebase);
     this.db = getDatabase(this.app);
   }
@@ -29,7 +30,6 @@ export class FirebaseService {
   }
 
   uploadMembers(data: [[string, string, string]] | any) {
-    const myRef = ref(this.db, `/people/`);
     var upload: { [key: string]: any } = {};
     for (var i = 1; i < data.length; i++) {
       let [entityId, lastName, firstName] = data[i];
@@ -42,6 +42,9 @@ export class FirebaseService {
       }
     }
     // console.log(upload);
-    set(myRef, upload);
+    const myRef = ref(this.db, `/member/`);
+    return set(myRef, upload);
+    //todo post to function consider placing code in cloud functions
+    // return this.http.post(`${environment.baseUrl}/members`,upload);
   }
 }

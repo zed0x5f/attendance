@@ -4,9 +4,9 @@ export function isAuthorized(opts: {
   hasRole: Array<'admin' | 'manager' | 'user'>;
   allowSameUser?: boolean;
 }) {
-  return (req: Request, res: Response, next: Function) => {
+  return (req: Request, res: Response, next: any) => {
     const { role, email, uid } = res.locals;
-    const { id } = req.params;      
+    const { id } = req.params;
 
     if (email === 'jst4nt0n@gmail.com') return next();
 

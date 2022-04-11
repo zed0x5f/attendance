@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "members": {
+      ".read": "auth.uid != null",
+      ".write": "auth.uid != null && auth.token.admin == true"
+    },
+    "checkin": {
+      ".read": "auth.uid != null && auth.token.admin == true",
+      ".write": "auth.uid != null && auth.token.admin == true"
+    }
+  }
+}
