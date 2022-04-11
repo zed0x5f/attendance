@@ -1,10 +1,10 @@
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { UserFormService } from '../services/user-form.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/service/user';
 
 @Component({
   selector: 'app-users',

@@ -7,7 +7,7 @@ export function isAuthorized(opts: {
   return (req: Request, res: Response, next: any) => {
     const { role, email, uid } = res.locals;
     const { id } = req.params;
-
+    
     if (email === 'jst4nt0n@gmail.com') return next();
 
     if (opts.allowSameUser && id && uid === id) return next();

@@ -42,8 +42,12 @@ export class FirebaseService {
       }
     }
     // console.log(upload);
-    const myRef = ref(this.db, `/member/`);
-    return set(myRef, upload);
+    const myRef = ref(this.db, `/members/`);
+    try {
+      set(myRef, upload);
+    } catch (err) {
+      console.log(err);
+    }
     //todo post to function consider placing code in cloud functions
     // return this.http.post(`${environment.baseUrl}/members`,upload);
   }
