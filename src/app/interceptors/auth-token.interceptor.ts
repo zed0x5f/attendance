@@ -17,8 +17,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return this.auth.idToken.pipe(
       switchMap((idToken) => {
-        let clone = req.clone();
-        console.log('Bearer ' + idToken);
+        let clone = req.clone();        
         if (idToken) {
           clone = clone.clone({
             headers: req.headers.set('Authorization', 'Bearer ' + idToken),

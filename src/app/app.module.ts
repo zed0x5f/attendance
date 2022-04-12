@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './pageComponents/sign-in/sign-in.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { UsersModule } from './users/users.module';
+import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,9 @@ import { UsersModule } from './users/users.module';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    UsersModule
+    UsersModule,
   ],
-  providers: [FirebaseService],
+  providers: [FirebaseService, AuthTokenHttpInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,6 @@
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { UserFormComponent } from '../user-form/user-form.component';
-import { UserFormService } from '../services/user-form.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/service/user';
@@ -17,13 +16,13 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private userForm: UserFormService,
     private modal: NgbModal,
     private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
     this.userService.users$.subscribe((u) => {
+      console.log(u);
       this.users = u;
     });
 
@@ -38,7 +37,6 @@ export class UsersComponent implements OnInit {
   }
 
   create() {
-    this.userForm.create();
     const modalRef = this.modal.open(UserFormComponent);
     modalRef.result
       .then((user) => {
@@ -50,15 +48,19 @@ export class UsersComponent implements OnInit {
   }
 
   edit(userToEdit: User) {
-    this.userForm.edit(userToEdit);
-    // const modalRef = this.modal.open(UserFormComponent);
+    console.log(userToEdit);
+    const modalRef = this.modal.open(UserFormComponent);
+    modalRef.componentInstance.setUser(userToEdit);
     // once user form pop up is closed, we get the value as a result
-    // modalRef.result.then(user => {
-    //   this.userService.edit(user).subscribe(_ => {
-    //     console.log('user edited');
-    //   });
-    // }).catch(err => {
-
-    // });
+    modalRef.result
+      .then((user) => {
+        this.userService.edit(user).subscribe((_) => {
+          console.log(_);
+          console.log('user edited');
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

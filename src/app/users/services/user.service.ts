@@ -40,14 +40,10 @@ export class UserService {
   }
 
   create(user: CreateUserRequest) {
-    return this.http
-      .post(`${environment.baseUrl}/users`, user)
-      .pipe(map((_) => {}));
+    return this.http.post(`${environment.baseUrl}/users`, user);
   }
 
   edit(user: UpdateUserRequest) {
-    return this.http
-      .patch(`${environment.baseUrl}/users/${user.uid}`, user)
-      .pipe(map((_) => {}));
+    return this.http.patch(`${environment.baseUrl}/users/${user.uid}`, user);
   }
 }

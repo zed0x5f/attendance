@@ -1,11 +1,11 @@
 import * as firebaseFunctions from 'firebase-functions';
-import * as firebaseAdmin from 'firebase-admin';
+import { initializeApp } from 'firebase-admin/app';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { routesConfig } from './users/routes-config';
 
-firebaseAdmin.initializeApp();
+initializeApp();
 
 const app = express();
 app.use(bodyParser.json());

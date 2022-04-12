@@ -1,8 +1,5 @@
 import { FormGroup, FormControl } from '@angular/forms';
-import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { UserFormService } from '../services/user-form.service';
-import { tap } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -21,23 +18,27 @@ export class UserFormComponent implements OnInit {
   title: string = '';
   user: {} = {};
 
-  constructor(
-    public modal: NgbActiveModal,
-    private userService: UserService,
-    private userForm: UserFormService
-  ) {}
+  constructor(public modal: NgbActiveModal) {}
+
+  setUser(i: any) {
+    this.user = i;
+    i['password'] = '';
+    if (!('role' in i)) i['role'] = null;
+    console.log('user set');
+    this.form.setValue(i);
+  }
 
   ngOnInit() {
-    this.userForm.title$.subscribe((t) => (this.title = t));
-    this.user = this.userForm.user$.pipe(
-      tap((user) => {
-        if (user) {
-          this.form.patchValue(user);
-        } else {
-          this.form.reset({});
-        }
-      })
-    );
+    // this.userForm.title$.subscribe((t) => (this.title = t));
+    // this.userForm.user$.pipe(
+    //   tap((user) => {
+    //     if (user) {
+    //       this.form.patchValue(user);
+    //     } else {
+    //       this.form.reset({});
+    //     }
+    //   })
+    // );
   }
 
   dismiss() {
@@ -46,6 +47,7 @@ export class UserFormComponent implements OnInit {
 
   save() {
     const { displayName, email, role, password, uid } = this.form.value;
+    console.log('save');
     this.modal.close({ displayName, email, role, password, uid });
   }
 }
