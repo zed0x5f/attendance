@@ -10,6 +10,7 @@ import {
   push,
 } from '@firebase/database';
 import { initializeApp } from 'firebase/app';
+import { Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -21,6 +22,9 @@ export class FirebaseService {
   constructor(private http: HttpClient) {
     this.app = initializeApp(environment.firebase);
     this.db = getDatabase(this.app);
+    this._myMembersObservable = new Observable((observer) => {
+      this.memberOnValue(observer);
+    });
   }
 
   regex = /\.|\*|\[|\]|\/|#|\$/;
@@ -50,5 +54,17 @@ export class FirebaseService {
     }
     //todo post to function consider placing code in cloud functions
     // return this.http.post(`${environment.baseUrl}/members`,upload);
+  }
+
+  private _myMembersObservable: Observable<any[]>;
+  public get myMembersObservable(): Observable<any[]> {
+    return this._myMembersObservable;
+  }
+
+  memberOnValue(observer: Subscriber<any[]>) {
+    const memberRef = ref(this.db, '/members');
+    onValue(memberRef, (snapshot) => {
+      observer.next(snapshot.val());
+    });
   }
 }

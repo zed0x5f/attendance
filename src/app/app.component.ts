@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
-import { SignInComponent } from './pageComponents/sign-in/sign-in.component';
+import { SignInComponent } from './modals/sign-in/sign-in.component';
 
 @Component({
   selector: 'app-root',
