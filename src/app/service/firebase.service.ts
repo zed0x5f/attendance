@@ -12,6 +12,7 @@ import {
 import { initializeApp } from 'firebase/app';
 import { Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { FireBaseListDict, Member } from '../models/types';
 
 @Injectable({
   providedIn: 'root',
@@ -56,15 +57,38 @@ export class FirebaseService {
     // return this.http.post(`${environment.baseUrl}/members`,upload);
   }
 
-  private _myMembersObservable: Observable<any[]>;
-  public get myMembersObservable(): Observable<any[]> {
+  private _myMembersObservable: Observable<FireBaseListDict<Member>>;
+  public get myMembersObservable(): Observable<FireBaseListDict<Member>> {
     return this._myMembersObservable;
   }
 
-  memberOnValue(observer: Subscriber<any[]>) {
+  private memberOnValue(observer: Subscriber<FireBaseListDict<Member>>) {
     const memberRef = ref(this.db, '/members');
     onValue(memberRef, (snapshot) => {
       observer.next(snapshot.val());
+    });
+  }
+
+  saveCheckin(id: string) {
+    let today = new Date();
+    //chad way to write this code
+    let [year, month, day] = [
+      today.getUTCFullYear(),
+      today.getUTCMonth() + 1, //starts at 0
+      today.getUTCDate(),
+    ].map((number) => String(number));
+    let path = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+    console.log(path);
+    let newPostKey = push(child(ref(this.db), `/checkin/${path}/${id}`)).key;
+
+    const checkinRef = ref(this.db, `/checkin/${path}/${id}/${newPostKey}`);
+
+    return set(checkinRef, today.getTime()).then(() => {
+      return {
+        time: today.getTime(),
+        id: id,
+      };
     });
   }
 }

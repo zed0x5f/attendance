@@ -1,4 +1,5 @@
 export interface Member {
+  fullName: any;
   firstName: string;
   lastName: string;
   //todo store score here

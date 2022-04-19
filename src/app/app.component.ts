@@ -15,6 +15,23 @@ export class AppComponent {
   name = '';
   loggedIn: Boolean = false;
 
+  makeLink(a: string, b: string) {
+    return {
+      link: a,
+      text: b,
+    };
+  }
+
+  links: { link: string; text: string }[] = [
+    this.makeLink('/', 'Home Component'),
+    this.makeLink('/meal', 'Reactive meal singup'),
+    this.makeLink('/console', 'console checkin'),
+    this.makeLink('/admin', 'admin'),
+    this.makeLink('/admin/import-users', 'Volunteer/id upload'),
+    this.makeLink('/admin/users', 'User management'),
+    this.makeLink('/codes', 'codes for scanner'),
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private afAuth: AngularFireAuth,
@@ -36,5 +53,12 @@ export class AppComponent {
   async signOut() {
     await this.afAuth.signOut();
     await this.router.navigateByUrl('/');
+  }
+
+  isDropped = false;
+  show = '';
+  dropdown() {
+    this.isDropped = !this.isDropped;
+    this.show = this.isDropped ? 'show' : '';
   }
 }

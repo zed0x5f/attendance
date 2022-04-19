@@ -19,3 +19,8 @@
 .barcode::before .barcode::after {
   content: "*";
 }
+
+body {
+  margin: 0;
+  padding: 0;
+}
