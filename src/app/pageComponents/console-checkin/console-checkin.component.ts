@@ -59,6 +59,7 @@ export class ConsoleCheckinComponent implements OnInit {
 
   error = false;
   errorText: string = '';
+  success: { fullName: string }[] = [];
   saveCheckin(id: string) {
     let checkMember = (id: string): boolean => {
       return this.members[id] != undefined;
@@ -68,15 +69,16 @@ export class ConsoleCheckinComponent implements OnInit {
     if (checkMember(id)) {
       //save checkin
       //11468
-      this.error = false;
       try {
-        this.fb.saveCheckin(id);
+        this.fb.saveCheckin(id).then((foo) => {
+          this.success.push(this.members[id].fullName);
+        });
       } catch (err) {
         alert(err);
       }
     } else {
       //raise error
-      this.errorText = `id:${id}   member:${this.members[id]}`
+      this.errorText = `id:${id}   member:${this.members[id]}`;
     }
   }
 }

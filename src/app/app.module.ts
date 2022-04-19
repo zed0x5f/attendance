@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 import { NetumCodesComponent } from './pageComponents/netum-codes/netum-codes.component';
 import { MealFormTemplateDrivenComponent } from './pageComponents/meals-forms/meal-form-template-driven/meal-form-template-driven.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,12 @@ import { MealFormTemplateDrivenComponent } from './pageComponents/meals-forms/me
     ReactiveFormsModule,
     NgbModule,
     UsersModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [FirebaseService, AuthTokenHttpInterceptorProvider],
   bootstrap: [AppComponent],

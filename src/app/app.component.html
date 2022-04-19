@@ -1,12 +1,14 @@
 <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
-<nav class="d-flex p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <div class="dropdown">
+<nav
+  class="d-flex p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm justify-content-between"
+>
+  <div class="dropdown mr-auto">
     <button
-      class="btn btn-secondary dropdown-toggle"
+      class="btn btn-secondary dropdown-toggle mr-auto"
       type="button"
       (click)="dropdown()"
     >
-      Dropdown button
+      Nav menu
     </button>
     <ul class="dropdown-menu" [ngClass]="show">
       <li class="dropdown-item" *ngFor="let item of links">

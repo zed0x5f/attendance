@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { SignInComponent } from './modals/sign-in/sign-in.component';
 
 @Component({
@@ -45,6 +45,11 @@ export class AppComponent {
     this.afAuth.authState.subscribe((user) => {
       this.loggedIn = !!user;
     });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.close();
+      });
   }
   signIn() {
     this.modal.open(SignInComponent);
@@ -60,5 +65,10 @@ export class AppComponent {
   dropdown() {
     this.isDropped = !this.isDropped;
     this.show = this.isDropped ? 'show' : '';
+  }
+
+  close() {
+    this.isDropped = false;
+    this.show = '';
   }
 }
