@@ -25,18 +25,17 @@ export class UsersComponent implements OnInit {
       console.log(u);
       this.users = u;
     });
-
-    if (false)
-      this.afAuth.user.subscribe((user) => {
-        console.log('user from arAuth');
-        console.log(user);
-        if (user != null)
-          this.user = {
-            uid: user.uid,
-            displayName: user.displayName!,
-            email: user.email!,
-          };
-      });
+    //todo 
+    this.afAuth.user.subscribe((user) => {
+      console.log('user from arAuth');
+      console.log(user);
+      if (user != null)
+        this.user = {
+          uid: user.uid,
+          displayName: user.displayName!,
+          email: user.email!,
+        };
+    });
   }
 
   create() {

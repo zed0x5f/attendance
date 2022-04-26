@@ -30,6 +30,7 @@ export class AppComponent {
     this.makeLink('/admin/import-users', 'Volunteer/id upload'),
     this.makeLink('/admin/users', 'User management'),
     this.makeLink('/codes', 'codes for scanner'),
+    this.makeLink('/exports', 'export page'),
   ];
 
   constructor(

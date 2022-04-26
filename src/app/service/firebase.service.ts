@@ -26,6 +26,9 @@ export class FirebaseService {
     this._myMembersObservable = new Observable((observer) => {
       this.memberOnValue(observer);
     });
+    this._attendanceObservable = new Observable((observer)=>{
+      this.attendanceOnValue(observer);
+    })
   }
 
   regex = /\.|\*|\[|\]|\/|#|\$/;
@@ -67,6 +70,18 @@ export class FirebaseService {
     onValue(memberRef, (snapshot) => {
       observer.next(snapshot.val());
     });
+  }
+
+  private _attendanceObservable: Observable<FireBaseListDict<any>>;//update type with proper type
+  public get attendanceObservable(): Observable<FireBaseListDict<any>> {
+    return this._attendanceObservable;
+  }
+
+  private attendanceOnValue(observer:Subscriber<FireBaseListDict<any>>) { 
+    const attendanceRef = ref(this.db, 'checkin');
+    onValue(attendanceRef, (snapshot)=>{
+      observer.next(snapshot.val());
+    })
   }
 
   saveCheckin(id: string) {
