@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminHomeComponent } from './pageComponents/admin/home/home.component';
 import { ImportUsersComponent } from './pageComponents/admin/import-users/import-users.component';
+import { AttendanceExportComponent } from './pageComponents/attendance-export/attendance-export.component';
 import { ConsoleCheckinComponent } from './pageComponents/console-checkin/console-checkin.component';
 import { HomeComponent } from './pageComponents/home/home.component';
 import { MealAttendanceComponent } from './pageComponents/meal-attendance/meal-attendance.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   makeRoute('admin/import-users', ImportUsersComponent),
   // makeRoute('signin',SigninComponent)
   makeRoute('admin/users', UsersComponent),
+  makeRoute('exports',AttendanceExportComponent)
 ];
 
 @NgModule({

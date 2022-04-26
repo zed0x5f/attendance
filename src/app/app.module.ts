@@ -15,6 +15,7 @@ import { SignInComponent } from './pageComponents/sign-in/sign-in.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { UsersModule } from './users/users.module';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
+import { AttendanceExportComponent } from './pageComponents/attendance-export/attendance-export.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.inte
     MealFormTemplateDrivenComponent,
     ConsoleCheckinComponent,
     SignInComponent,
+    AttendanceExportComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
