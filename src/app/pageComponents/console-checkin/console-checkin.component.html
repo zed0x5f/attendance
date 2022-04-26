@@ -1,16 +1,41 @@
-Scanner input
-<br />
-<input #box (keyup.enter)="update(box.value)" (blur)="update(box.value)" />
+<div class="d-flex h-100 w-100">
+  <!-- left -->
+  <div class="d-flex flex-column w-50">
+    <p>
+      Scanner input
+      <br />
+      <input
+        #box
+        [value]="value"
+        (keyup)="update(box.value)"
+        (blur)="update(box.value)"
+      />
 
-<p>{{ value }}</p>
-<p>
+      {{ value }}
+    </p>
+    <!-- <p>
   <button (click)="enter()" type="button" class="btn btn-success">Enter</button>
-</p>
-<p>
-  <input #manual />
-</p>
-<p>
-  <button (click)="submit()" type="button" class="btn btn-success">
-    submit by name or number
-  </button>
-</p>
+</p> -->
+    <p>
+      Manual input <br />
+      <input #manual />
+      <br />
+      <button (click)="submit()" type="button" class="btn btn-success">
+        submit by name or number
+      </button>
+    </p>
+  </div>
+  <!-- right -->
+  <div class="d-flex flex-column w-50">
+    <div *ngIf="error">
+      error couldnt find member
+      <br />
+      {{ errorText }}
+    </div>
+    <div>
+      Success full checkins
+      <br />
+      <!-- todo make list for success -->
+    </div>
+  </div>
+</div>

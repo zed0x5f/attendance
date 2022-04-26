@@ -16,15 +16,26 @@ export class SignInComponent implements OnInit {
 
   constructor(public modal: NgbActiveModal, private afAuth: AngularFireAuth) {}
 
+  errors = '';
   async signIn() {
-    try {
-      const { email, password } = this.myForm.value;
-      console.log(email);
-      await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.modal.close();
-    } catch (err) {
-      console.log(err);
-    }
+    const { email, password } = this.myForm.value;
+    console.log(email);
+    this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.modal.close();
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
   }
 
   ngOnInit() {}

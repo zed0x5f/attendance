@@ -7,6 +7,10 @@
       {
         "source": "api/**",
         "function": "api"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ],
     "predeploy": ["ng build"]

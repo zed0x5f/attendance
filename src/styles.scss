@@ -7,4 +7,20 @@
 
 // Then add additional custom code here
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+@import url("http://fonts.cdnfonts.com/css/libre-barcode-39-text");
+.barcode {
+  color: black;
+  background-color: white;
+  font-family: "Libre Barcode 39 Text", sans-serif;
+  font-size: 1.5rem;
+}
+.barcode::before .barcode::after {
+  content: "*";
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
