@@ -44,7 +44,7 @@ function mapUser(user: admin.auth.UserRecord) {
     email: user.email || '',
     displayName: user.displayName || '',
     role,
-    lastSignInTime: user.metadata.lastSignInTime,
+    // lastSignInTime: user.metadata.lastSignInTime,
     creationTime: user.metadata.creationTime,
   };
 }

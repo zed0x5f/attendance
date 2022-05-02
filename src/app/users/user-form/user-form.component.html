@@ -21,7 +21,8 @@
         placeholder="Enter email"
       />
     </div>
-    <div class="form-group">
+    <!-- TODO make password uptional in this modal     -->
+    <!-- <div class="form-group">
       <label>Password</label>
       <input
         type="password"
@@ -29,7 +30,7 @@
         class="form-control"
         placeholder="Password"
       />
-    </div>
+    </div> -->
     <div class="form-group">
       <label>Display Name</label>
       <input
@@ -42,9 +43,12 @@
     <div class="form-group">
       <label>Role</label>
       <select class="custom-select" formControlName="role">
+        <!-- TODO use enums and enumerate -->
         <option value="admin">Admin</option>
         <option value="manager">Manager</option>
-        <option value="user">User</option>
+        <option value="console">Console</option>
+        <option value="">Unset</option>
+        <!-- <option value="user">User</option> -->
       </select>
     </div>
   </form>

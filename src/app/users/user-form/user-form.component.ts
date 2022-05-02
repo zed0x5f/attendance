@@ -12,7 +12,7 @@ export class UserFormComponent implements OnInit {
     uid: new FormControl(''),
     email: new FormControl(''),
     displayName: new FormControl(''),
-    password: new FormControl(''),
+    // password: new FormControl(''),
     role: new FormControl(''),
   });
   title: string = '';
@@ -46,8 +46,8 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
-    const { displayName, email, role, password, uid } = this.form.value;
+    const { displayName, email, role, uid } = this.form.value;
     console.log('save');
-    this.modal.close({ displayName, email, role, password, uid });
+    this.modal.close({ displayName, email, role, uid });
   }
 }

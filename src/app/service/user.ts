@@ -4,5 +4,11 @@ export interface User {
   displayName?: string;
   photoURL?: string;
   emailVerified?: boolean;
-  role?: any;
+  role?: Roles;
+}
+
+export enum Roles {
+  Admin = 'admin',
+  Manager = 'manager',
+  Console = 'console',
 }

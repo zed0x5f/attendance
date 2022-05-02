@@ -70,7 +70,7 @@ export class ConsoleCheckinComponent implements OnInit {
       //save checkin
       //11468
       try {
-        this.fb.saveCheckin(id).then((foo) => {
+        this.fb.saveCheckin(id).then(() => {
           this.success.push(this.members[id].fullName);
         });
       } catch (err) {

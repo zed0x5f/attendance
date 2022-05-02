@@ -12,29 +12,30 @@ import {
 import { initializeApp } from 'firebase/app';
 import { Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FireBaseListDict, Member } from '../models/types';
-
+import { checkin, FireBaseListDict, Member } from '../models/types';
+import { Util } from './util';
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
   app;
   db;
-  constructor(private http: HttpClient) {
+  constructor() {
     this.app = initializeApp(environment.firebase);
     this.db = getDatabase(this.app);
     this._myMembersObservable = new Observable((observer) => {
       this.memberOnValue(observer);
     });
-    this._attendanceObservable = new Observable((observer)=>{
+    console.log('create observable');
+    this._attendanceObservable = new Observable((observer) => {
       this.attendanceOnValue(observer);
-    })
+    });
   }
 
-  regex = /\.|\*|\[|\]|\/|#|\$/;
+  fireBaseRegexTester = /\.|\*|\[|\]|\/|#|\$/;
   checkIfValid(input: string) {
     if (input == '') return false;
-    return !this.regex.test(input);
+    return !this.fireBaseRegexTester.test(input);
   }
 
   uploadMembers(data: [[string, string, string]] | any) {
@@ -67,43 +68,45 @@ export class FirebaseService {
 
   private memberOnValue(observer: Subscriber<FireBaseListDict<Member>>) {
     const memberRef = ref(this.db, '/members');
-    onValue(memberRef, (snapshot) => {
-      observer.next(snapshot.val());
-    });
+    onValue(
+      memberRef,
+      (snapshot) => {
+        observer.next(snapshot.val());
+      },
+      Util.throwError
+    );
   }
 
-  private _attendanceObservable: Observable<FireBaseListDict<any>>;//update type with proper type
-  public get attendanceObservable(): Observable<FireBaseListDict<any>> {
+  private _attendanceObservable: Observable<checkin>; //update type with proper type
+  public get attendanceObservable(): Observable<checkin> {
     return this._attendanceObservable;
   }
 
-  private attendanceOnValue(observer:Subscriber<FireBaseListDict<any>>) { 
+  private attendanceOnValue(observer: Subscriber<checkin>) {
     const attendanceRef = ref(this.db, 'checkin');
-    onValue(attendanceRef, (snapshot)=>{
-      observer.next(snapshot.val());
-    })
+    console.log('onCheckin1');
+    onValue(
+      attendanceRef,
+      (snapshot) => {
+        console.log('onCheckin2');
+        observer.next(snapshot.val());
+      },
+      Util.throwError
+    );
   }
 
-  saveCheckin(id: string) {
+  async saveCheckin(id: string) {
     let today = new Date();
-    //chad way to write this code
-    let [year, month, day] = [
-      today.getUTCFullYear(),
-      today.getUTCMonth() + 1, //starts at 0
-      today.getUTCDate(),
-    ].map((number) => String(number));
-    let path = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-
-    console.log(path);
+    let path = Util.getYYYY_MM_DD(today);
+    // console.log(path);
     let newPostKey = push(child(ref(this.db), `/checkin/${path}/${id}`)).key;
 
     const checkinRef = ref(this.db, `/checkin/${path}/${id}/${newPostKey}`);
 
-    return set(checkinRef, today.getTime()).then(() => {
-      return {
-        time: today.getTime(),
-        id: id,
-      };
-    });
+    await set(checkinRef, today.getTime());
+    return {
+      time: today.getTime(),
+      id: id,
+    };
   }
 }
