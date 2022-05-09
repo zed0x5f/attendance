@@ -26,7 +26,6 @@ export class AppComponent {
     this.makeLink('/', 'Home Component'),
     this.makeLink('/meal', 'Reactive meal singup'),
     this.makeLink('/console', 'console checkin'),
-    this.makeLink('/admin', 'admin'),
     this.makeLink('/admin/import-users', 'Volunteer/id upload'),
     this.makeLink('/admin/users', 'User management'),
     this.makeLink('/codes', 'codes for scanner'),

@@ -12,7 +12,6 @@ export class AttendanceExportComponent implements OnInit {
 
   tendies: any[] = [];
   encodedUri: string = '';
-  download: string = '';
 
   ngOnInit(): void {
     this.fb.attendanceObservable.subscribe((attendance: checkin) => {
@@ -27,42 +26,7 @@ export class AttendanceExportComponent implements OnInit {
         }
       }
       //create the encoded uri
-      this.encodedUri = Util.convertArrayToEncodedUri(this.tendies);
       console.log(this.tendies);
-      this.download = `${Util.getYYYY_MM_DD(new Date())}.csv`;
     });
-  }
-
-  exportClick() {
-    this.downloadFile(this.tendies);
-  }
-
-  downloadFile(data: string[][], fileName?: string) {
-    if (fileName == null) {
-      fileName = `${Util.getYYYY_MM_DD(new Date())}.csv`;
-    } else if (!fileName.endsWith('.csv')) {
-      //doesnt end with csv
-      fileName += '.csv';
-    }
-
-    const replacer = (key: any, value: any) => (value === null ? '' : value); // specify how you want to handle null values here
-    const header = Object.keys(data[0]);
-    const csv = data.map((row: any) =>
-      header
-        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
-        .join(',')
-    );
-    csv.unshift(header.join(','));
-    const csvArray = csv.join('\r\n');
-
-    const a = document.createElement('a');
-    const blob = new Blob([csvArray], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
   }
 }

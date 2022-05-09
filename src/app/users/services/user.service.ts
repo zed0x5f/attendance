@@ -44,6 +44,7 @@ export class UserService {
   }
 
   edit(user: UpdateUserRequest) {
+    console.log("service user save"+JSON.stringify(user));
     return this.http.patch(`${environment.baseUrl}/users/${user.uid}`, user);
   }
 }

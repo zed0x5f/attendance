@@ -1,0 +1,8 @@
+
+<div *ngIf="data.length > 0" class="btn btn-large btn-success" (click)="exportClick()">
+    <ng-content></ng-content>
+  </div>
+
+  <div *ngIf="data.length == 0" class="btn btn-large btn-warning" >
+      Loading
+  </div>

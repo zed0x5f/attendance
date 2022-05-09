@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminHomeComponent } from './home.component';
+import { DownloadCsvComponent } from './download-csv.component';
 
-describe('HomeComponent', () => {
-  let component: AdminHomeComponent;
-  let fixture: ComponentFixture<AdminHomeComponent>;
+describe('DownloadCsvComponent', () => {
+  let component: DownloadCsvComponent;
+  let fixture: ComponentFixture<DownloadCsvComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminHomeComponent ]
+      declarations: [ DownloadCsvComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminHomeComponent);
+    fixture = TestBed.createComponent(DownloadCsvComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

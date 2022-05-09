@@ -21,10 +21,7 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userService.users$.subscribe((u) => {
-      console.log(u);
-      this.users = u;
-    });
+
     //todo 
     this.afAuth.user.subscribe((user) => {
       console.log('user from arAuth');
@@ -35,7 +32,14 @@ export class UsersComponent implements OnInit {
           displayName: user.displayName!,
           email: user.email!,
         };
+        this.userService.users$.subscribe((u) => {
+          console.log(u);
+          this.users = u;
+          this.user = this.users.find(e=>e.email==this.user?.email)!;
+        });
+        // 
     });
+
   }
 
   create() {
@@ -54,14 +58,17 @@ export class UsersComponent implements OnInit {
     const modalRef = this.modal.open(UserFormComponent);
     modalRef.componentInstance.setUser(userToEdit);
     // once user form pop up is closed, we get the value as a result
+    
     modalRef.result
       .then((user) => {
+        console.log("parent caught modal close")
         this.userService.edit(user).subscribe((_) => {
           console.log(_);
           console.log('user edited');
         });
       })
       .catch((err) => {
+        console.log("parent mUserForm moal error")
         console.log(err);
       });
   }

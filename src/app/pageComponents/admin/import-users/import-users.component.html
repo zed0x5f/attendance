@@ -7,17 +7,31 @@
 
 <table>
   <tr>
-    <td>EntityId</td>
-    <td>LastName</td>
-    <td>FirstName</td>
+    <td *ngFor="let h of headers">{{h}}</td>
+  </tr>
+  <tr>
+    <td>Required</td>
+    <td>Required</td>
+    <td>Required</td>
+    <td>Required</td>
+    <td>Required if staff</td>
+    <td>Optional</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td></td>
     <td></td>
+    <td>volunteer | staff
+      <br>
+      staff will get a login so that they manage their meal prefrence, dietary restrictions, guest counts, and pin
+    </td>
+    <td></td>
+    <td>witht this template we can deactivate users easily if we wish</td>
   </tr>
 </table>
-
+<br>
+<download-csv [data]="[headers]" [fileName]="'upload template.csv'">download a template file</download-csv>
+<br>
 <div class="file-upload">
   {{ fileName || "No file uploaded yet." }}
   <button

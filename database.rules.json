@@ -5,8 +5,12 @@
       ".write": "auth.uid != null && auth.token.role === 'admin'"
     },
     "checkin": {
-      ".read": "auth.uid != null && (auth.token.role === 'admin' || auth.token.role == 'manager')",
+      ".read": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')",
       ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')"
+    },
+    "reservation":{
+      ".read":"true",
+      ".write":"true"
     }
   }
 }

@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit {
     i['password'] = '';
     if (!('role' in i)) i['role'] = null;
     console.log('user set');
-    this.form.setValue(i);
+    this.form.patchValue(i);
   }
 
   ngOnInit() {
@@ -47,7 +47,8 @@ export class UserFormComponent implements OnInit {
 
   save() {
     const { displayName, email, role, uid } = this.form.value;
-    console.log('save');
+    console.log('modal close');
     this.modal.close({ displayName, email, role, uid });
+    
   }
 }

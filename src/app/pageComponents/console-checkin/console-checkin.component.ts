@@ -53,8 +53,9 @@ export class ConsoleCheckinComponent implements OnInit {
     this.submitValue = this.submitValue;
   }
 
-  submit() {
+  submit(thing:any) {
     //todo implement search feature
+    console.log('submit',typeof thing,thing)
   }
 
   error = false;
@@ -71,7 +72,8 @@ export class ConsoleCheckinComponent implements OnInit {
       //11468
       try {
         this.fb.saveCheckin(id).then(() => {
-          this.success.push(this.members[id].fullName);
+          //unshift inserts at the beging of an array
+          this.success.unshift(this.members[id].fullName);
         });
       } catch (err) {
         alert(err);

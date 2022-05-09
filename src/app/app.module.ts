@@ -14,10 +14,12 @@ import { SignInComponent } from './modals/sign-in/sign-in.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { UsersModule } from './users/users.module';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
-import { AttendanceExportComponent } from './pageComponents/attendance-export/attendance-export.component';
+import { AttendanceExportComponent } from './pageComponents/admin/attendance-export/attendance-export.component';
 import { NetumCodesComponent } from './pageComponents/netum-codes/netum-codes.component';
 import { MealFormTemplateDrivenComponent } from './pageComponents/meals-forms/meal-form-template-driven/meal-form-template-driven.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { DownloadCsvComponent } from './shared-components/download-csv/download-csv.component';
+import { ImportUsersComponent } from './pageComponents/admin/import-users/import-users.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SignInComponent,
     AttendanceExportComponent,
     NetumCodesComponent,
+    DownloadCsvComponent,
+    ImportUsersComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -45,7 +49,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-  ],
+    ],  
   providers: [FirebaseService, AuthTokenHttpInterceptorProvider],
   bootstrap: [AppComponent],
 })

@@ -62,13 +62,13 @@ export async function get(req: Request, res: Response) {
 export async function patch(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const { displayName, password, email, role } = req.body;
-
-    if (!id || !displayName || !password || !email || !role) {
+    const { displayName, email, role } = req.body;
+    //todo move password so we can update elsewhere
+    if (!id || !displayName || !email || !role) {
       return res.status(400).send({ message: 'Missing fields' });
     }
-
-    await admin.auth().updateUser(id, { displayName, password, email });
+    console.error("token claims "+JSON.stringify(role));
+    await admin.auth().updateUser(id, { displayName, email });
     await admin.auth().setCustomUserClaims(id, { role });
     const user = await admin.auth().getUser(id);
 
