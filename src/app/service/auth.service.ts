@@ -6,7 +6,10 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
+  setPersistence,
 } from 'firebase/auth';
+import { Observable } from 'rxjs';
+import { Foo } from '../models/types';
 import { FirebaseService } from './firebase.service';
 
 @Injectable({
@@ -30,23 +33,35 @@ export class AuthService {
     this.isLoggedIn = JSON.parse(localStorage.getItem('user') + '') !== 'null';
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-
-    onAuthStateChanged(this.auth, (user) => {
-      console.log('state has changed');
+    this._LoggedInAuth = new Observable((observer)=>{
+    onAuthStateChanged(this.auth, (user) => {      
+      console.log('auth state has changed');
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         this.isLoggedIn = true;
+        observer.next(this.getUserFoo());
       } else {
         localStorage.removeItem('user');
         this.isLoggedIn = false;
-      }
+      }      
     });
+  });
+  }
+  private getUserFoo():Foo{
+    return {
+      auth:this.auth,
+      currentUser:this.auth.currentUser
+    };
+  }
+  private _LoggedInAuth:Observable<Foo>;
+  public get LoggedInObservable():Observable<Foo>{
+    return this._LoggedInAuth;
   }
 
   // Sign in with email/password
   SignIn(email: string, password: string) {
-    console.log('signing in');
+    console.log('signing in');    
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 

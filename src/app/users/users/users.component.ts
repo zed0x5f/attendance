@@ -4,6 +4,7 @@ import { UserFormComponent } from '../user-form/user-form.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/service/user';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -17,29 +18,17 @@ export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private modal: NgbModal,
-    private afAuth: AngularFireAuth
+    private authService:AuthService
+    // private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
 
     //todo 
-    this.afAuth.user.subscribe((user) => {
-      console.log('user from arAuth');
-      console.log(user);
-      if (user != null)
-        this.user = {
-          uid: user.uid,
-          displayName: user.displayName!,
-          email: user.email!,
-        };
-        this.userService.users$.subscribe((u) => {
-          console.log(u);
-          this.users = u;
-          this.user = this.users.find(e=>e.email==this.user?.email)!;
-        });
-        // 
-    });
-
+    this.userService.users$.subscribe(users=>{
+      this.users = users;
+      this.user = users.find(e=>e.email==this.authService.userData.email)!;
+    })
   }
 
   create() {

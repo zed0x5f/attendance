@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, map } from 'rxjs';
 import { SignInComponent } from './modals/sign-in/sign-in.component';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,8 @@ export class AppComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private afAuth: AngularFireAuth,
+    // private afAuth: AngularFireAuth,
+    private authService:AuthService,
     private modal: NgbModal,
     private router: Router
   ) {}
@@ -42,9 +44,10 @@ export class AppComponent {
     this.route.queryParams.subscribe((params) => {
       this.name = params['name'];
     });
-    this.afAuth.authState.subscribe((user) => {
-      this.loggedIn = !!user;
-    });
+    this.loggedIn = this.authService.isLoggedIn;
+    this.authService.auth.onAuthStateChanged((user)=>{
+      this.loggedIn = this.authService.isLoggedIn
+    })
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
@@ -56,7 +59,8 @@ export class AppComponent {
   }
 
   async signOut() {
-    await this.afAuth.signOut();
+    // await this.afAuth.signOut();
+    await this.authService.SignOut();
     await this.router.navigateByUrl('/');
   }
 

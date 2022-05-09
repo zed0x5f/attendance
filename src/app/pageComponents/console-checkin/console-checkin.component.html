@@ -17,13 +17,19 @@
   <button (click)="enter()" type="button" class="btn btn-success">Enter</button>
 </p> -->
     <p>
-      Manual input <br />
+      Search<br />
       <input #manual />
       <br />
       <button (click)="submit(manual)" type="button" class="btn btn-success">
-        submit by name or number
+        Search by name or number or pin
       </button>
     </p>
+    <!-- considered added just a pin serach -->
+    <div *ngFor="let m of resultOfSearch" class="d-flex justify-content-between py-2">
+      <div>
+        {{m.fullName}}</div>
+      <div class="btn btn-info" (click)="saveCheckin(m.key!)">checkin</div>
+    </div>  
   </div>
   <!-- right -->
   <div class="d-flex flex-column w-50">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,14 +14,14 @@ export class SignInComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(public modal: NgbActiveModal, private afAuth: AngularFireAuth) {}
+  constructor(public modal: NgbActiveModal, private afAuth: AuthService) {}
 
   errors = '';
   async signIn() {
     const { email, password } = this.myForm.value;
     console.log(email);
     this.afAuth
-      .signInWithEmailAndPassword(email, password)
+      .SignIn(email, password)
       .then(() => {
         this.modal.close();
       })

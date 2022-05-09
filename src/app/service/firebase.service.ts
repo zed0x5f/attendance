@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   getDatabase,
@@ -22,6 +21,7 @@ export class FirebaseService {
   db;
   constructor() {
     this.app = initializeApp(environment.firebase);
+    console.log("app",this.app)
     this.db = getDatabase(this.app);
     this._myMembersObservable = new Observable((observer) => {
       this.memberOnValue(observer);
@@ -31,6 +31,13 @@ export class FirebaseService {
       this.attendanceOnValue(observer);
     });
   }
+  throwError(error:any){
+    // let mAuth = getAuth(this.app);
+    // console.log(mAuth);
+    console.log('throwin error')
+    console.log(this.app == null);
+    Util.throwError(error);
+  }
 
   fireBaseRegexTester = /\.|\*|\[|\]|\/|#|\$/;
   checkIfValid(input: string) {
@@ -38,15 +45,30 @@ export class FirebaseService {
     return !this.fireBaseRegexTester.test(input);
   }
 
-  uploadMembers(data: [[string, string, string]] | any) {
+  autoPin(input:string){
+    // let num = Number.parseInt(input);
+    return input.slice(0,-4);//TODO implement check digit algo
+  }
+
+  uploadMembers(data: [] | any) {
     var upload: { [key: string]: any } = {};
     for (var i = 1; i < data.length; i++) {
-      let [entityId, lastName, firstName] = data[i];
-      let newGuy = { lastName: lastName, firstName: firstName };
-      if (this.checkIfValid(entityId)) upload[entityId!] = newGuy;
+      let [EntityId, lastName, firstName,PersonType,Email,Status,pin] = data[i];
+      if(Status == undefined)Status='active';
+      
+      if(PersonType=='volunteer')pin = this.autoPin(EntityId);
+      let newGuy = { 
+        lastName: lastName, 
+        firstName: firstName,
+        personType:PersonType,
+        email:Email,
+        status:Status,
+        pin:pin
+      };
+      if (this.checkIfValid(EntityId)) upload[EntityId!] = newGuy;
       else {
         //improper entity id
-        console.log(entityId);
+        console.log(EntityId);
         console.log(newGuy);
       }
     }
@@ -73,7 +95,7 @@ export class FirebaseService {
       (snapshot) => {
         observer.next(snapshot.val());
       },
-      Util.throwError
+      this.throwError
     );
   }
 
@@ -91,7 +113,7 @@ export class FirebaseService {
         console.log('onCheckin2');
         observer.next(snapshot.val());
       },
-      Util.throwError
+      this.throwError
     );
   }
 

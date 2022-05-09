@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FireBaseListDict, Member } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
 
@@ -53,10 +53,23 @@ export class ConsoleCheckinComponent implements OnInit {
     this.submitValue = this.submitValue;
   }
 
-  submit(thing:any) {
+  submit(manInput:HTMLInputElement) {
+    if(manInput.value == '' || manInput.value == undefined)return;
     //todo implement search feature
-    console.log('submit',typeof thing,thing)
+    // console.log('submit',typeof thing,thing)
+    // console.log(manInput.value);
+    let regEx = new RegExp(manInput.value,'i');
+    this.resultOfSearch = [];
+    for (const [key, value] of Object.entries(this.members)) {
+      if(regEx.test(value.fullName) || regEx.test(value.pin+'')){
+        value.key = key
+        this.resultOfSearch.push(value);
+      }
+    }
+    manInput.value = '';
   }
+  resultOfSearch: Member[] = [];
+  
 
   error = false;
   errorText: string = '';

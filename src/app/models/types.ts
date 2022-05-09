@@ -1,4 +1,6 @@
 export interface Member {
+  pin?: string;
+  key?: string;
   fullName: any;
   firstName: string;
   lastName: string;
@@ -56,3 +58,8 @@ export interface memberListOfTimeStamps {
 export type checkin = {
   [key: DateKey]: memberListOfTimeStamps;
 };
+
+export interface Foo {
+  auth:any,
+  currentUser:any
+}

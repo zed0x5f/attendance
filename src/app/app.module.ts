@@ -11,7 +11,6 @@ import { ConsoleCheckinComponent } from './pageComponents/console-checkin/consol
 import { FirebaseService } from './service/firebase.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './modals/sign-in/sign-in.component';
-import { AngularFireModule } from '@angular/fire/compat';
 import { UsersModule } from './users/users.module';
 import { AuthTokenHttpInterceptorProvider } from './interceptors/auth-token.interceptor';
 import { AttendanceExportComponent } from './pageComponents/admin/attendance-export/attendance-export.component';
@@ -20,6 +19,7 @@ import { MealFormTemplateDrivenComponent } from './pageComponents/meals-forms/me
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { DownloadCsvComponent } from './shared-components/download-csv/download-csv.component';
 import { ImportUsersComponent } from './pageComponents/admin/import-users/import-users.component';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,6 @@ import { ImportUsersComponent } from './pageComponents/admin/import-users/import
     ImportUsersComponent
   ],
   imports: [
-    AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
@@ -50,7 +49,7 @@ import { ImportUsersComponent } from './pageComponents/admin/import-users/import
       registrationStrategy: 'registerWhenStable:30000'
     }),
     ],  
-  providers: [FirebaseService, AuthTokenHttpInterceptorProvider],
+  providers: [AuthService, FirebaseService, AuthTokenHttpInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

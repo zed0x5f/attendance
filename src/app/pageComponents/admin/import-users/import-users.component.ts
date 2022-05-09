@@ -75,7 +75,9 @@ export class ImportUsersComponent implements OnInit {
           if(rowValidation != undefined)  if(!rowValidation(row)){
              alert("invalid data "+JSON.stringify(row));
              return;
-          }          
+          }
+
+
           row.forEach((j) => {            
             cells.push(j);
           });
