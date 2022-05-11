@@ -14,7 +14,7 @@ import { AuthService } from './service/auth.service';
 export class AppComponent {
   title = 'attendance';
   name = '';
-  loggedIn: Boolean = false;
+  isLoggedIn: Boolean = false;
 
   makeLink(a: string, b: string) {
     return {
@@ -24,13 +24,14 @@ export class AppComponent {
   }
 
   links: { link: string; text: string }[] = [
-    this.makeLink('/', 'Home Component'),
-    this.makeLink('/meal', 'Reactive meal singup'),
+    // this.makeLink('/', 'Home Component'),
     this.makeLink('/console', 'console checkin'),
     this.makeLink('/admin/import-users', 'Volunteer/id upload'),
     this.makeLink('/admin/users', 'User management'),
+    this.makeLink('/admin/members','manage members'),
     this.makeLink('/codes', 'codes for scanner'),
     this.makeLink('/exports', 'export page'),
+    this.makeLink('/meal', 'Reactive meal singup'),
   ];
 
   constructor(
@@ -44,9 +45,10 @@ export class AppComponent {
     this.route.queryParams.subscribe((params) => {
       this.name = params['name'];
     });
-    this.loggedIn = this.authService.isLoggedIn;
-    this.authService.auth.onAuthStateChanged((user)=>{
-      this.loggedIn = this.authService.isLoggedIn
+    this.isLoggedIn = this.authService.isLoggedIn;
+
+    this.authService.authChange.subscribe(foo=>{
+      this.isLoggedIn = !!foo.currentUser
     })
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -54,6 +56,7 @@ export class AppComponent {
         this.close();
       });
   }
+
   signIn() {
     this.modal.open(SignInComponent);
   }

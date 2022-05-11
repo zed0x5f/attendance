@@ -19,13 +19,14 @@
     </ul>
   </div>
   <div class="ml-auto">
-    <a *ngIf="!loggedIn" class="btn btn-outline-primary" (click)="signIn()"
+    <a *ngIf="!isLoggedIn" class="btn btn-outline-primary" (click)="signIn()"
       >Sign in</a
     >
 
-    <a *ngIf="loggedIn" class="btn btn-outline-primary" (click)="signOut()"
+    <a *ngIf="isLoggedIn" class="btn btn-outline-primary" (click)="signOut()"
       >Log out</a
     >
+    <span class="ml-2">Version(0.0.5)</span>
   </div>
 </nav>
 <!-- The routed views render in the <router-outlet>-->

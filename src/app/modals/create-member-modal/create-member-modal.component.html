@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{ title }}</h4>
+  <button
+    type="button"
+    class="close"
+    aria-describedby="modal-title"
+    (click)="dismiss()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group">
+      <label>First Name</label>
+      <input
+        type="string"
+        formControlName="firstName"
+        class="form-control"
+        placeholder="Enter First name"
+      />
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input
+        type="string"
+        formControlName="lastName"
+        class="form-control"
+        placeholder="Enter First name"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Email address</label>
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control"
+        placeholder="Enter email"
+      />
+    </div>
+    <div class="form-group">
+      <label>Entity id must be unique</label>
+      <input
+        type="string"
+        formControlName="key"
+        class="form-control"
+        placeholder="Enter entity id"
+      />
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-danger" (click)="dismiss()">
+    Cancel
+  </button>
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+</div>

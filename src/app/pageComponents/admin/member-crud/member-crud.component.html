@@ -1,0 +1,14 @@
+CRUD
+create wip
+read done
+update 
+delete
+<div class="btn btn-success" (click)="create()">Add new member</div>
+
+<div class="d-flex flex-column">
+  <div *ngFor="let m of members" class="d-flex flex-row justify-content-around">
+    <div>{{ m.firstName }}</div>
+    <div>{{ m.lastName }}</div>
+    <div>{{ m.key }}</div>
+  </div>
+</div>

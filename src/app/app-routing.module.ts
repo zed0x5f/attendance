@@ -7,6 +7,7 @@ import { ConsoleCheckinComponent } from './pageComponents/console-checkin/consol
 import { HomeComponent } from './pageComponents/home/home.component';
 import { MealAttendanceComponent } from './pageComponents/meals-forms/meal-attendance/meal-attendance.component';
 import { UsersComponent } from './users/users/users.component';
+import { MemberCrudComponent } from './pageComponents/admin/member-crud/member-crud.component';
 
 //helper function
 let makeRoute = (pathI: string, componentI: any) => {
@@ -23,6 +24,7 @@ const routes: Routes = [
   makeRoute('admin/users', UsersComponent),
   makeRoute('exports', AttendanceExportComponent),
   makeRoute('codes', NetumCodesComponent),
+  makeRoute('admin/members',MemberCrudComponent)
 ];
 
 @NgModule({

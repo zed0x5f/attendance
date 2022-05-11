@@ -18,7 +18,7 @@ export class SigninComponent implements OnInit {
       .SignIn(email, password)
       .then((userCredential:UserCredential) => {
         // Signed in
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['console']);
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -3,15 +3,15 @@ import * as admin from 'firebase-admin';
 
 export async function create(req: Request, res: Response) {
   try {
-    const { displayName, password, email, role } = req.body;
+    const { displayName, /*password,*/ email, role } = req.body;
 
-    if (!displayName || !password || !email || !role) {
+    if (!displayName || !email || !role) {
       return res.status(400).send({ message: 'Missing fields' });
     }
 
     const { uid } = await admin.auth().createUser({
       displayName,
-      password,
+      // password,
       email,
     });
     await admin.auth().setCustomUserClaims(uid, { role });

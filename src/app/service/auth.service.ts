@@ -30,35 +30,50 @@ export class AuthService {
   ) {
     this.auth = getAuth(this.firebase.app);
     this.provider = new GoogleAuthProvider();
-    this.isLoggedIn = JSON.parse(localStorage.getItem('user') + '') !== 'null';
+    this.isLoggedIn = JSON.parse(localStorage.getItem('user') + '') !== null;
+    console.log("logged in state ",this.isLoggedIn,JSON.parse(localStorage.getItem('user') + ''))
+
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-    this._LoggedInAuth = new Observable((observer)=>{
+    this._authChange = new Observable((observer)=>{
+    this.observeAuthChange(observer);
+  });
+  this._LoggedInAuth = new Observable((observer)=>{
+    this._authChange.subscribe((foo)=>{
+      if(this.isLoggedIn)observer.next(this.getUserFoo());
+    })
+  })
+  }
+  private observeAuthChange(observer:any){
     onAuthStateChanged(this.auth, (user) => {      
       console.log('auth state has changed');
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        this.isLoggedIn = true;
-        observer.next(this.getUserFoo());
+        this.isLoggedIn = true;       
       } else {
         localStorage.removeItem('user');
         this.isLoggedIn = false;
       }      
+      observer.next(this.getUserFoo());
     });
-  });
   }
+
+
   private getUserFoo():Foo{
     return {
       auth:this.auth,
       currentUser:this.auth.currentUser
     };
   }
+  
   private _LoggedInAuth:Observable<Foo>;
   public get LoggedInObservable():Observable<Foo>{
     return this._LoggedInAuth;
   }
 
+  private _authChange:Observable<Foo>;
+  public get authChange(){return this._authChange}
   // Sign in with email/password
   SignIn(email: string, password: string) {
     console.log('signing in');    
@@ -112,7 +127,7 @@ export class AuthService {
   SignOut() {
     return this.auth.signOut().then(() => {
       // localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['']);
     });
   }
 }

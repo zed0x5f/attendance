@@ -1,7 +1,6 @@
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { UserFormComponent } from '../user-form/user-form.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UserFormComponent } from '../../modals/user-form/user-form.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/service/user';
 import { AuthService } from 'src/app/service/auth.service';

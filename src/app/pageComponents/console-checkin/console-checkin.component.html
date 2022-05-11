@@ -41,7 +41,9 @@
     <div>
       Success full checkins
       <br />
-      <!-- todo make list for success -->
+      <div *ngFor="let s of success" class="d-flex flex-column">
+        <div>{{s.fullName}}</div>
+      </div>
     </div>
   </div>
 </div>

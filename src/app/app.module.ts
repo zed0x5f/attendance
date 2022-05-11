@@ -20,6 +20,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { DownloadCsvComponent } from './shared-components/download-csv/download-csv.component';
 import { ImportUsersComponent } from './pageComponents/admin/import-users/import-users.component';
 import { AuthService } from './service/auth.service';
+import { MemberCrudComponent } from './pageComponents/admin/member-crud/member-crud.component';
+import { CreateMemberModalComponent } from './modals/create-member-modal/create-member-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AuthService } from './service/auth.service';
     AttendanceExportComponent,
     NetumCodesComponent,
     DownloadCsvComponent,
-    ImportUsersComponent
+    ImportUsersComponent,
+    MemberCrudComponent,
+    CreateMemberModalComponent
   ],
   imports: [
     HttpClientModule,

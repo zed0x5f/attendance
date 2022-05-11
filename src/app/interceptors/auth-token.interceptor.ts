@@ -11,8 +11,8 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     intercept(req : HttpRequest < any >, next : HttpHandler) {
         return this.myAuth.LoggedInObservable.pipe(switchMap((token2:Foo) => { // token.currentUser
             return from(this.myAuth.auth.currentUser !.getIdToken()).pipe(switchMap((token : string) => {
-                console.log(token)
-                console.log("token2",token2)
+                // console.log(token)
+                // console.log("token2",token2)
                 let clone = req.clone();
                 if (token) {
                     clone = clone.clone({

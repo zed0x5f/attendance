@@ -32,10 +32,7 @@ export class FirebaseService {
     });
   }
   throwError(error:any){
-    // let mAuth = getAuth(this.app);
-    // console.log(mAuth);
-    console.log('throwin error')
-    console.log(this.app == null);
+    alert(error);
     Util.throwError(error);
   }
 
@@ -126,6 +123,7 @@ export class FirebaseService {
     const checkinRef = ref(this.db, `/checkin/${path}/${id}/${newPostKey}`);
 
     await set(checkinRef, today.getTime());
+    console.log("finish checkin");
     return {
       time: today.getTime(),
       id: id,

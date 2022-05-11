@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
-import { UserFormComponent } from './user-form/user-form.component';
+import { UserFormComponent } from '../modals/user-form/user-form.component';
 
 @NgModule({
   declarations: [
