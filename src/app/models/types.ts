@@ -1,9 +1,10 @@
 export interface Member {
   pin?: string;
   key?: string;
-  fullName: any;
+  fullName?: any;
   firstName: string;
   lastName: string;
+  personType:string;
   //todo store score here
 }
 
@@ -38,7 +39,7 @@ export type ms = `${number}`;
 const DateKeyRegex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
 
 export interface memberListOfTimeStamps {
-  [key: number]: ms;
+  [key: string]: FireBaseListDict<number>;
 }
 
 /**

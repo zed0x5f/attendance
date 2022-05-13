@@ -2,15 +2,15 @@
   "rules": {
     "members": {
       ".read": "auth.uid != null",
-      ".write": "auth.uid != null && auth.token.role === 'admin'"
+      ".write": "auth.uid != null && auth.token.role == 'admin'"
     },
     "checkin": {
       ".read": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')",
-      ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')"
+      ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager' || auth.token.role == 'console')"
     },
-    "reservation":{
-      ".read":"true",
-      ".write":"true"
+    "reservation": {
+      ".read": "true",
+      ".write": "true"
     }
   }
 }

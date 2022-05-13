@@ -6,6 +6,7 @@ import {
   get,
   child,
   set,
+  update,
   push,
 } from '@firebase/database';
 import { initializeApp } from 'firebase/app';
@@ -21,7 +22,7 @@ export class FirebaseService {
   db;
   constructor() {
     this.app = initializeApp(environment.firebase);
-    console.log("app",this.app)
+    console.log('app', this.app);
     this.db = getDatabase(this.app);
     this._myMembersObservable = new Observable((observer) => {
       this.memberOnValue(observer);
@@ -31,7 +32,7 @@ export class FirebaseService {
       this.attendanceOnValue(observer);
     });
   }
-  throwError(error:any){
+  throwError(error: any) {
     alert(error);
     Util.throwError(error);
   }
@@ -42,42 +43,45 @@ export class FirebaseService {
     return !this.fireBaseRegexTester.test(input);
   }
 
-  autoPin(input:string){
+  autoPin(input: string) {
     // let num = Number.parseInt(input);
-    return input.slice(0,-4);//TODO implement check digit algo
+    return input.slice(input.length - 4); //TODO implement check digit algo
   }
 
   uploadMembers(data: [] | any) {
+    console.log('data', data);
     var upload: { [key: string]: any } = {};
-    for (var i = 1; i < data.length; i++) {
-      let [EntityId, lastName, firstName,PersonType,Email,Status,pin] = data[i];
-      if(Status == undefined)Status='active';
-      
-      if(PersonType=='volunteer')pin = this.autoPin(EntityId);
-      let newGuy = { 
-        lastName: lastName, 
+    data.forEach((d: any) => {
+      let [EntityId, lastName, firstName, PersonType, Email, Status, pin] = d;
+      if (Status == undefined) Status = 'active';
+
+      if (PersonType == 'volunteer') pin = this.autoPin(EntityId);
+      if (pin == undefined || pin == null) pin = this.autoPin(EntityId);
+      let newGuy = {
+        lastName: lastName,
         firstName: firstName,
-        personType:PersonType,
-        email:Email,
-        status:Status,
-        pin:pin
+        personType: PersonType,
+        email: Email,
+        status: Status,
+        pin: pin,
       };
-      if (this.checkIfValid(EntityId)) upload[EntityId!] = newGuy;
-      else {
-        //improper entity id
+      if (this.checkIfValid(EntityId)) {
+        upload[EntityId!] = newGuy;
+      } else {
+        //improper entity id\
+        console.log('impoper id');
         console.log(EntityId);
         console.log(newGuy);
       }
-    }
+    });
     // console.log(upload);
     const myRef = ref(this.db, `/members/`);
     try {
-      set(myRef, upload);
+      console.log('upload', upload);
+      if (upload && Object.keys(upload).length !== 0) update(myRef, upload);
     } catch (err) {
       console.log(err);
     }
-    //todo post to function consider placing code in cloud functions
-    // return this.http.post(`${environment.baseUrl}/members`,upload);
   }
 
   private _myMembersObservable: Observable<FireBaseListDict<Member>>;
@@ -123,7 +127,7 @@ export class FirebaseService {
     const checkinRef = ref(this.db, `/checkin/${path}/${id}/${newPostKey}`);
 
     await set(checkinRef, today.getTime());
-    console.log("finish checkin");
+    console.log('finish checkin');
     return {
       time: today.getTime(),
       id: id,

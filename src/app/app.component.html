@@ -19,6 +19,7 @@
     </ul>
   </div>
   <div class="ml-auto">
+    <span class="ml-2">Version(0.0.11)</span>
     <a *ngIf="!isLoggedIn" class="btn btn-outline-primary" (click)="signIn()"
       >Sign in</a
     >
@@ -26,7 +27,6 @@
     <a *ngIf="isLoggedIn" class="btn btn-outline-primary" (click)="signOut()"
       >Log out</a
     >
-    <span class="ml-2">Version(0.0.5)</span>
   </div>
 </nav>
 <!-- The routed views render in the <router-outlet>-->

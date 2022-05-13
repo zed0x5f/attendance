@@ -2,34 +2,40 @@
   <!-- left -->
   <div class="d-flex flex-column w-50">
     <p>
-      Scanner input
+      Use the
+      <br />
+      Scanner Input
       <br />
       <input
         #box
         [value]="value"
         (keyup)="update(box.value)"
         (blur)="update(box.value)"
+        placeholder="You must select this"
       />
 
       {{ value }}
     </p>
-    <!-- <p>
-  <button (click)="enter()" type="button" class="btn btn-success">Enter</button>
-</p> -->
+    <p>or</p>
     <p>
-      Search<br />
+      Search Here<br />
       <input #manual />
       <br />
+      <br />
       <button (click)="submit(manual)" type="button" class="btn btn-success">
-        Search by name or number or pin
+        Search By Name Or Number Or Pin
       </button>
     </p>
     <!-- considered added just a pin serach -->
-    <div *ngFor="let m of resultOfSearch" class="d-flex justify-content-between py-2">
+    <div
+      *ngFor="let m of resultOfSearch"
+      class="d-flex justify-content-between py-2"
+    >
       <div>
-        {{m.fullName}}</div>
-      <div class="btn btn-info" (click)="saveCheckin(m.key!)">checkin</div>
-    </div>  
+        {{ m.fullName }}
+      </div>
+      <div class="btn btn-success" (click)="saveCheckin(m.key!)">checkin</div>
+    </div>
   </div>
   <!-- right -->
   <div class="d-flex flex-column w-50">
@@ -38,11 +44,12 @@
       <br />
       {{ errorText }}
     </div>
+
     <div>
       Success full checkins
       <br />
       <div *ngFor="let s of success" class="d-flex flex-column">
-        <div>{{s.fullName}}</div>
+        <div>{{ s.fullName }}</div>
       </div>
     </div>
   </div>

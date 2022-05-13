@@ -1,0 +1,10 @@
+[debug] [2022-05-13T22:03:30.251Z] ----------------------------------------------------------------------
+[debug] [2022-05-13T22:03:30.253Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hal-3\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2022-05-13T22:03:30.253Z] CLI Version:   10.1.0
+[debug] [2022-05-13T22:03:30.254Z] Platform:      win32
+[debug] [2022-05-13T22:03:30.254Z] Node Version:  v16.13.1
+[debug] [2022-05-13T22:03:30.254Z] Time:          Fri May 13 2022 15:03:30 GMT-0700 (Pacific Daylight Time)
+[debug] [2022-05-13T22:03:30.255Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-13T22:03:30.306Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-13T22:03:30.306Z] > authorizing via signed-in user (jst4nt0n@gmail.com)

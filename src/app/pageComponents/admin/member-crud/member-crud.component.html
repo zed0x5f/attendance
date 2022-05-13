@@ -1,14 +1,22 @@
-CRUD
-create wip
-read done
-update 
-delete
+CRUD create wip read done update delete
 <div class="btn btn-success" (click)="create()">Add new member</div>
 
 <div class="d-flex flex-column">
-  <div *ngFor="let m of members" class="d-flex flex-row justify-content-around">
-    <div>{{ m.firstName }}</div>
-    <div>{{ m.lastName }}</div>
-    <div>{{ m.key }}</div>
+  <div class="row">
+    <div class="col">
+      First name
+      <toggle-btn></toggle-btn>
+    </div>
+    <div class="col">Last name</div>
+    <div class="col">Pin</div>
+    <div class="col">Person Type</div>
+    <div class="col">Registration Id</div>
+  </div>
+  <div *ngFor="let m of members" class="row">
+    <div class="col">{{ m.firstName }}</div>
+    <div class="col">{{ m.lastName }}</div>
+    <div class="col">{{ m.pin }}</div>
+    <div class="col">{{ m.personType }}</div>
+    <div class="col">{{ m.key }}</div>
   </div>
 </div>

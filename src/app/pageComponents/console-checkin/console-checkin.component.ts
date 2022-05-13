@@ -84,15 +84,13 @@ export class ConsoleCheckinComponent implements OnInit {
     if (checkMember(id)) {
       //save checkin
       //11468
-      let presucess = true;
-      this.checkinSucess(id);
+      // let presucess = true;
+      // this.checkinSucess(id);
       try {
         this.fb.saveCheckin(id).then((value) => {
           console.log(value);
           //unshift inserts at the beging of an array
-          if (!presucess) {
             this.checkinSucess(id);
-          }
         });
       } catch (err) {
         alert(err);
@@ -103,10 +101,12 @@ export class ConsoleCheckinComponent implements OnInit {
       this.checkinError(id);
     }
   }
+  
   checkinError(id: string) {
     this.errorText = `id:${id}   member:${this.members[id]}`;
     this.success = this.success.filter((e) => e.key != id);
   }
+
   checkinSucess(id: string) {
     this.success.unshift(this.members[id]);
     console.log(this.success);

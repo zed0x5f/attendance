@@ -22,6 +22,7 @@ import { ImportUsersComponent } from './pageComponents/admin/import-users/import
 import { AuthService } from './service/auth.service';
 import { MemberCrudComponent } from './pageComponents/admin/member-crud/member-crud.component';
 import { CreateMemberModalComponent } from './modals/create-member-modal/create-member-modal.component';
+import { ToggleBtnComponent } from './shared-components/toggle-btn/toggle-btn.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CreateMemberModalComponent } from './modals/create-member-modal/create-
     DownloadCsvComponent,
     ImportUsersComponent,
     MemberCrudComponent,
-    CreateMemberModalComponent
+    CreateMemberModalComponent,
+    ToggleBtnComponent
   ],
   imports: [
     HttpClientModule,
