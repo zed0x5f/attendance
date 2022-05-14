@@ -18,6 +18,10 @@ import { Util } from './util';
   providedIn: 'root',
 })
 export class FirebaseService {
+  //TODO: ues multicasting currently the observables are cold
+  //https://rxjs.dev/deprecations/multicasting
+  //that would fix some issues with recalling the same data
+
   app;
   db;
   constructor() {
@@ -49,14 +53,15 @@ export class FirebaseService {
   }
 
   uploadMembers(data: [] | any) {
-    console.log('data', data);
+    // console.log('data', data);
     var upload: { [key: string]: any } = {};
     data.forEach((d: any) => {
       let [EntityId, lastName, firstName, PersonType, Email, Status, pin] = d;
-      if (Status == undefined) Status = 'active';
+      if (Status == undefined || Status == '') Status = 'active';
 
       if (PersonType == 'volunteer') pin = this.autoPin(EntityId);
-      if (pin == undefined || pin == null) pin = this.autoPin(EntityId);
+      if (pin == undefined || pin == null || pin == '')
+        pin = this.autoPin(EntityId);
       let newGuy = {
         lastName: lastName,
         firstName: firstName,

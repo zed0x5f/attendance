@@ -31,7 +31,8 @@ export class ConsoleCheckinComponent implements OnInit {
   count = 0;
 
   update(value: string) {
-    const delay = 600;
+    //todo use switchmap to restart a timeout instead of a timeout function
+    const delay = 460;
     this.value = value;
     this.lastUpdate = new Date().getTime();
     this.count += 1;
@@ -62,7 +63,7 @@ export class ConsoleCheckinComponent implements OnInit {
     // console.log(manInput.value);
     let regEx = new RegExp(manInput.value, 'i');
     for (const [key, value] of Object.entries(this.members)) {
-      if (regEx.test(value.fullName) || regEx.test(value.pin + '')) {
+      if (regEx.test(value.fullName!) || regEx.test(value.pin + '')) {
         value.key = key;
         this.resultOfSearch.push(value);
       }
@@ -90,7 +91,7 @@ export class ConsoleCheckinComponent implements OnInit {
         this.fb.saveCheckin(id).then((value) => {
           console.log(value);
           //unshift inserts at the beging of an array
-            this.checkinSucess(id);
+          this.checkinSucess(id);
         });
       } catch (err) {
         alert(err);
@@ -101,7 +102,7 @@ export class ConsoleCheckinComponent implements OnInit {
       this.checkinError(id);
     }
   }
-  
+
   checkinError(id: string) {
     this.errorText = `id:${id}   member:${this.members[id]}`;
     this.success = this.success.filter((e) => e.key != id);

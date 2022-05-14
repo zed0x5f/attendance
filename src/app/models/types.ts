@@ -1,7 +1,8 @@
 export interface Member {
   pin?: string;
   key?: string;
-  fullName?: any;
+  fullName?: string;
+  status?:string;
   firstName: string;
   lastName: string;
   personType:string;

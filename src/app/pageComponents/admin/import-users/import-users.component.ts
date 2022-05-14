@@ -36,7 +36,7 @@ export class ImportUsersComponent implements OnInit {
 
   validateMyRow(row: string[]): boolean {
     if (row.length < 4) return false;
-    let acceptableMemberType = ['volunteer', 'staff'];
+    let acceptableMemberType = ['volunteer', 'staff', 'nrg']; //todo enumerate this jazz
     const [EntityId, LastName, FirstName, PersonType, Email, Status] = row;
     if (!acceptableMemberType.includes(PersonType)) return false;
     if (PersonType == 'staff') {
@@ -65,6 +65,11 @@ export class ImportUsersComponent implements OnInit {
             if (!rowValidation(row)) {
               alert('invalid data ' + JSON.stringify(row));
               return;
+            } else {
+              if (!this.validateMyRow(row)) {
+                alert('invalid data ' + JSON.stringify(row));
+                return;
+              }
             }
 
           row.forEach((j) => {
