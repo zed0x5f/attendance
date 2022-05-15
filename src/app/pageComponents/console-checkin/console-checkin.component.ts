@@ -63,7 +63,11 @@ export class ConsoleCheckinComponent implements OnInit {
     // console.log(manInput.value);
     let regEx = new RegExp(manInput.value, 'i');
     for (const [key, value] of Object.entries(this.members)) {
-      if (regEx.test(value.fullName!) || regEx.test(value.pin + '')) {
+      if (
+        regEx.test(value.fullName!) ||
+        regEx.test(value.pin + '') ||
+        regEx.test(value.key + '')
+      ) {
         value.key = key;
         this.resultOfSearch.push(value);
       }

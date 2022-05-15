@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Member } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
+import { Util } from 'src/app/service/util';
 
 @Component({
   selector: 'app-create-member-modal',
@@ -21,7 +22,10 @@ export class CreateMemberModalComponent implements OnInit {
   });
   save() {
     console.log(this.form.value);
-    if (false) this.fb.uploadMembers([this.form.value]);
+    let bob = Util.clone(this.form.value);
+    delete bob.key;
+    this.fb.saveMember(this.form.value.key, bob);
+    this.modal.close();
   }
   title: string = '';
   constructor(public modal: NgbActiveModal, private fb: FirebaseService) {}

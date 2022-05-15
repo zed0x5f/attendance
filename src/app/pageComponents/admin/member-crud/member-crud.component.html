@@ -10,13 +10,18 @@
     <div class="col">Pin</div>
     <div class="col">Person Type</div>
     <div class="col">Registration Id</div>
+    <div class="col">Status</div>
+    <div class="col">Edit Member Here</div>
   </div>
-  <div *ngFor="let m of members" class="row">
+  <div *ngFor="let m of members" class="row my-1">
     <div class="col">{{ m.firstName }}</div>
     <div class="col">{{ m.lastName }}</div>
     <div class="col">{{ m.pin }}</div>
     <div class="col">{{ m.personType }}</div>
     <div class="col">{{ m.key }}</div>
     <div class="col">{{ m.status }}</div>
+    <div class="col">
+      <div class="btn btn-success" (click)="edit(m.key + '')">Edit</div>
+    </div>
   </div>
 </div>

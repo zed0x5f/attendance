@@ -12,7 +12,7 @@ import {
 import { initializeApp } from 'firebase/app';
 import { Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { checkin, FireBaseListDict, Member } from '../models/types';
+import { Checkin, FireBaseListDict, Member } from '../models/types';
 import { Util } from './util';
 @Injectable({
   providedIn: 'root',
@@ -52,7 +52,38 @@ export class FirebaseService {
     return input.slice(input.length - 4); //TODO implement check digit algo
   }
 
-  uploadMembers(data: [] | any) {
+  uploadReservations(data: string[][]) {
+    let upload: any = {};
+    data.forEach((row: any) => {
+      let [RegistrationId, date, Breakfast, Lunch, Dinner] = row;
+
+      let toNum = (a: string) => parseInt(a);
+      try {
+        Breakfast = toNum(Breakfast);
+        Lunch = toNum(Lunch);
+        Dinner = toNum(Dinner);
+      } catch (err) {
+        alert('problem with ' + JSON.stringify(row));
+        console.log(err, JSON.stringify(row));
+        return;
+      }
+      // date = new Date(date);
+      upload[Util.getYYYY_MM_DD(date)][RegistrationId] = {
+        b: Breakfast,
+        l: Lunch,
+        d: Dinner,
+      };
+    });
+    const myRef = ref(this.db, `/reservations/`);
+    try {
+      console.log('upload', upload);
+      if (upload && Object.keys(upload).length !== 0) update(myRef, upload);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  uploadMembers(data: string[][]) {
     // console.log('data', data);
     var upload: { [key: string]: any } = {};
     data.forEach((d: any) => {
@@ -89,6 +120,16 @@ export class FirebaseService {
     }
   }
 
+  saveMember(key: string, upload: Member) {
+    const myRef = ref(this.db, `/members/${key}`);
+    try {
+      console.log('upload', upload, 'key', key);
+      if (upload && Object.keys(upload).length !== 0) update(myRef, upload);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   private _myMembersObservable: Observable<FireBaseListDict<Member>>;
   public get myMembersObservable(): Observable<FireBaseListDict<Member>> {
     return this._myMembersObservable;
@@ -105,12 +146,12 @@ export class FirebaseService {
     );
   }
 
-  private _attendanceObservable: Observable<checkin>; //update type with proper type
-  public get attendanceObservable(): Observable<checkin> {
+  private _attendanceObservable: Observable<Checkin>; //update type with proper type
+  public get attendanceObservable(): Observable<Checkin> {
     return this._attendanceObservable;
   }
 
-  private attendanceOnValue(observer: Subscriber<checkin>) {
+  private attendanceOnValue(observer: Subscriber<Checkin>) {
     const attendanceRef = ref(this.db, 'checkin');
     console.log('onCheckin1');
     onValue(

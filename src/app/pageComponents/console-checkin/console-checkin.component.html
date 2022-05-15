@@ -1,6 +1,6 @@
 <div class="d-flex h-100 w-100">
   <!-- left -->
-  <div class="d-flex flex-column w-50">
+  <div class="d-flex flex-column w-50 px-2">
     <p>
       Use the
       <br />
@@ -12,6 +12,7 @@
         (keyup)="update(box.value)"
         (blur)="update(box.value)"
         placeholder="You must select this"
+        class="w-100"
       />
 
       {{ value }}
@@ -19,7 +20,7 @@
     <p>or</p>
     <p>
       Search Here<br />
-      <input #manual />
+      <input #manual class="w-100" />
       <br />
       <br />
       <button (click)="submit(manual)" type="button" class="btn btn-success">
@@ -29,7 +30,7 @@
     <!-- considered added just a pin serach -->
     <div
       *ngFor="let m of resultOfSearch"
-      class="d-flex justify-content-between py-2"
+      class="d-flex justify-content-between py-3 my-1 border border-info px-1 rounded"
     >
       <div>
         {{ m.fullName }}
@@ -38,15 +39,19 @@
     </div>
   </div>
   <!-- right -->
-  <div class="d-flex flex-column w-50">
-    <div *ngIf="error">
+  <div class="d-flex flex-column w-50 px-2">
+    <div class="mb-2 rounded border p-1">
+      <h3>Checkin Count {{ success.length }}</h3>
+    </div>
+    <div *ngIf="error" class="text-danger bg-dark p-2">
       error couldnt find member
       <br />
       {{ errorText }}
     </div>
 
-    <div>
-      Success full checkins
+    <div class="p-2">
+      <span>Successful Checkin</span>
+
       <br />
       <div *ngFor="let s of success" class="d-flex flex-column">
         <div>{{ s.fullName }}</div>

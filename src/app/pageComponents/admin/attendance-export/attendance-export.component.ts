@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, combineLatest, concatMap, forkJoin, of, zip } from 'rxjs';
-import { checkin, FireBaseListDict, Member } from 'src/app/models/types';
+import { Checkin, FireBaseListDict, Member } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
 import { Util } from 'src/app/service/util';
 @Component({
@@ -14,7 +14,7 @@ export class AttendanceExportComponent implements OnInit {
   tendies: any[] = [];
   encodedUri: string = '';
   members: FireBaseListDict<Member> = {};
-  tempAttendance:checkin={};
+  tempAttendance: Checkin = {};
   ngOnInit(): void {
     //dont ask me why use combinelatest over forkjoin idk what the take(1) realy does
     combineLatest([
@@ -27,7 +27,7 @@ export class AttendanceExportComponent implements OnInit {
     });
   }
 
-  tenderLoin(attendance: checkin, argMembers: FireBaseListDict<Member>) {
+  tenderLoin(attendance: Checkin, argMembers: FireBaseListDict<Member>) {
     // if(typeof attendance == er)
     this.tempAttendance = attendance;
     this.tendies = [
@@ -59,7 +59,7 @@ export class AttendanceExportComponent implements OnInit {
               lastName,
             ]);
           } catch (err) {
-            console.log("memberId",memberIdKey,"member",rowItemOfMember)
+            console.log('memberId', memberIdKey, 'member', rowItemOfMember);
             console.log(err);
           }
         }

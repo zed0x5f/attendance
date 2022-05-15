@@ -9,8 +9,8 @@
       ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager' || auth.token.role == 'console')"
     },
     "reservation": {
-      ".read": "true",
-      ".write": "true"
+      ".read": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')",
+      ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')"
     }
   }
 }

@@ -33,9 +33,9 @@ export class Util {
   static getYYYY_MM_DD(date: Date): DateKey {
     //chad way to write this code
     let [year, month, day] = [
-      date.getUTCFullYear(),
-      date.getUTCMonth() + 1, //starts at 0
-      date.getUTCDate(),
+      date.getFullYear(),
+      date.getMonth() + 1, //starts at 0
+      date.getDate(),
     ].map((number) => String(number));
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }

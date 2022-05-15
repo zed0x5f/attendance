@@ -23,6 +23,8 @@ import { AuthService } from './service/auth.service';
 import { MemberCrudComponent } from './pageComponents/admin/member-crud/member-crud.component';
 import { CreateMemberModalComponent } from './modals/create-member-modal/create-member-modal.component';
 import { ToggleBtnComponent } from './shared-components/toggle-btn/toggle-btn.component';
+import { ImportReservationsComponent } from './pageComponents/admin/import-reservations/import-reservations.component';
+import { MemberDietaryComponent } from './pageComponents/member-dietary/member-dietary.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ToggleBtnComponent } from './shared-components/toggle-btn/toggle-btn.co
     ImportUsersComponent,
     MemberCrudComponent,
     CreateMemberModalComponent,
-    ToggleBtnComponent
+    ToggleBtnComponent,
+    ImportReservationsComponent,
+    MemberDietaryComponent
   ],
   imports: [
     HttpClientModule,

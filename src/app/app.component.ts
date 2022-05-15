@@ -25,19 +25,21 @@ export class AppComponent {
 
   links: { link: string; text: string }[] = [
     // this.makeLink('/', 'Home Component'),
-    this.makeLink('/console', 'console checkin'),
-    this.makeLink('/admin/import-users', 'Volunteer/id upload'),
-    this.makeLink('/admin/users', 'User management'),
-    this.makeLink('/admin/members','manage members'),
-    this.makeLink('/codes', 'codes for scanner'),
-    this.makeLink('/exports', 'export page'),
-    this.makeLink('/meal', 'Reactive meal singup'),
+    this.makeLink('/console', 'Console Checkin'),
+    this.makeLink('/admin/import-members', 'Volunteer/id Upload'),
+    this.makeLink('/admin/import-reservations', 'Reservation Upload'),
+    this.makeLink('/admin/users', 'User Management'),
+    this.makeLink('/admin/members', 'Members Management'),
+    //admin/member-analytics
+    this.makeLink('/codes', 'Codes For Scanner'),
+    this.makeLink('/exports', 'Export Page'),
+    this.makeLink('/meal', 'Meal Singup Example'),
   ];
 
   constructor(
     private route: ActivatedRoute,
     // private afAuth: AngularFireAuth,
-    private authService:AuthService,
+    private authService: AuthService,
     private modal: NgbModal,
     private router: Router
   ) {}
@@ -47,9 +49,9 @@ export class AppComponent {
     });
     this.isLoggedIn = this.authService.isLoggedIn;
 
-    this.authService.authChange.subscribe(foo=>{
-      this.isLoggedIn = !!foo.currentUser
-    })
+    this.authService.authChange.subscribe((foo) => {
+      this.isLoggedIn = !!foo.currentUser;
+    });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {

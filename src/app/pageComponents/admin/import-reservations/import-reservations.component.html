@@ -14,27 +14,21 @@
     <td>Required</td>
     <td>Required</td>
     <td>Required</td>
-    <td>Required if staff</td>
-    <td>Optional</td>
-    <td>Optional</td>
+    <td>Required</td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
+    <td></td>
+    <td>JavaScript date format please</td>
     <td></td>
     <td></td>
-    <td>
-      volunteer | staff
-      <br />
-      staff will get a login so that they manage their meal prefrence, dietary
-      restrictions, guest counts, and pin
-    </td>
     <td></td>
-    <td>with this template we can deactivate users easily if we wish</td>
-    <td>a pin number to lookup with the consoles</td>
   </tr>
 </table>
 <br />
-<download-csv [data]="[headers]" [fileName]="'upload template.csv'"
+<download-csv
+  [data]="[headers]"
+  [fileName]="'Reservation Upload Template.csv'"
+  class="text-capitalize"
   >download a template file</download-csv
 >
 <br />
