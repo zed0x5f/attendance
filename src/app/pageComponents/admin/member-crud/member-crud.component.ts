@@ -42,6 +42,8 @@ export class MemberCrudComponent implements OnInit {
     let [ref, instance] = this.open();
     instance.member = this.memberDictionary[id];
     instance.members = this.members;
+    // console.log(instance.member);
+    instance.init();
   }
 
   sort(sortDirection: string) {

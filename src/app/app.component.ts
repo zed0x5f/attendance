@@ -28,11 +28,12 @@ export class AppComponent {
     this.makeLink('/console', 'Console Checkin'),
     this.makeLink('/admin/import-members', 'Volunteer/id Upload'),
     this.makeLink('/admin/import-reservations', 'Reservation Upload'),
+    this.makeLink('/admin/attendance-review', 'Attendance Review'),
+    this.makeLink('/exports', 'Export Page'),
     this.makeLink('/admin/users', 'User Management'),
     this.makeLink('/admin/members', 'Members Management'),
     //admin/member-analytics
     this.makeLink('/codes', 'Codes For Scanner'),
-    this.makeLink('/exports', 'Export Page'),
     this.makeLink('/meal', 'Meal Singup Example'),
   ];
 

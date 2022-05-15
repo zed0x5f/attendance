@@ -9,6 +9,7 @@ import { MealAttendanceComponent } from './pageComponents/meals-forms/meal-atten
 import { UsersComponent } from './users/users/users.component';
 import { MemberCrudComponent } from './pageComponents/admin/member-crud/member-crud.component';
 import { ImportReservationsComponent } from './pageComponents/admin/import-reservations/import-reservations.component';
+import { AttendanceReviewComponent } from './pageComponents/admin/attendance-review/attendance-review.component';
 
 //helper function
 let makeRoute = (pathI: string, componentI: any) => {
@@ -22,11 +23,12 @@ const routes: Routes = [
   makeRoute('console', ConsoleCheckinComponent),
   makeRoute('admin/import-members', ImportUsersComponent),
   makeRoute('admin/import-reservations', ImportReservationsComponent),
+  makeRoute('admin/members', MemberCrudComponent),
+  makeRoute('admin/attendance-review', AttendanceReviewComponent),
   // makeRoute('signin',SigninComponent)
   makeRoute('admin/users', UsersComponent),
   makeRoute('exports', AttendanceExportComponent),
   makeRoute('codes', NetumCodesComponent),
-  makeRoute('admin/members', MemberCrudComponent),
 ];
 
 @NgModule({

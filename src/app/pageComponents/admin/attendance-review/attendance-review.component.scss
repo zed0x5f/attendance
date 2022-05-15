@@ -1,0 +1,8 @@
+.jakeScroll {
+  overflow-x: scroll;
+  white-space: nowrap;
+  tr > div {
+    display: inline-block;
+    float: none;
+  }
+}

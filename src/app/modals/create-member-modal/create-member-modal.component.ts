@@ -33,12 +33,7 @@ export class CreateMemberModalComponent implements OnInit {
   newMemberKey: string = '';
   @Input() members: Member[] = [];
   @Input() member: Member | null = null;
-  ngOnInit(): void {
-    this.form.patchValue({
-      personType: 'nrg',
-      status: 'active',
-    });
-  }
+  ngOnInit(): void {}
 
   init() {
     if (this.member != null) this.form.patchValue(this.member);

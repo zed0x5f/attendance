@@ -1,0 +1,17 @@
+<p>
+  current assumption is the is b.l.d. for everyday serach while do not have the
+  meal scheldule imported
+</p>
+
+<table class="container jakeScroll">
+  <tr class="">
+    <td class="">Name</td>
+    <td class="" *ngFor="let d of datesToShow">{{ d }}</td>
+  </tr>
+  <tr class="" *ngFor="let mas of attendDanceToShow">
+    <td class=".text-wrap">{{ mas.name }}</td>
+    <td class="" *ngFor="let t of mas.tendies">
+      {{ t }}
+    </td>
+  </tr>
+</table>

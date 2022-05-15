@@ -25,6 +25,8 @@ import { CreateMemberModalComponent } from './modals/create-member-modal/create-
 import { ToggleBtnComponent } from './shared-components/toggle-btn/toggle-btn.component';
 import { ImportReservationsComponent } from './pageComponents/admin/import-reservations/import-reservations.component';
 import { MemberDietaryComponent } from './pageComponents/member-dietary/member-dietary.component';
+import { AttendanceReviewComponent } from './pageComponents/admin/attendance-review/attendance-review.component';
+import { AttendanceReviewCellComponent } from './attendance-review-cell/attendance-review-cell.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { MemberDietaryComponent } from './pageComponents/member-dietary/member-d
     CreateMemberModalComponent,
     ToggleBtnComponent,
     ImportReservationsComponent,
-    MemberDietaryComponent
+    MemberDietaryComponent,
+    AttendanceReviewComponent,
+    AttendanceReviewCellComponent
   ],
   imports: [
     HttpClientModule,

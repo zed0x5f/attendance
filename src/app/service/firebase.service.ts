@@ -12,7 +12,12 @@ import {
 import { initializeApp } from 'firebase/app';
 import { Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Checkin, FireBaseListDict, Member } from '../models/types';
+import {
+  Checkin,
+  FireBaseListDict,
+  Member,
+  Reservations,
+} from '../models/types';
 import { Util } from './util';
 @Injectable({
   providedIn: 'root',
@@ -28,12 +33,16 @@ export class FirebaseService {
     this.app = initializeApp(environment.firebase);
     console.log('app', this.app);
     this.db = getDatabase(this.app);
+    //TODO these are too cold
     this._myMembersObservable = new Observable((observer) => {
       this.memberOnValue(observer);
     });
     console.log('create observable');
     this._attendanceObservable = new Observable((observer) => {
       this.attendanceOnValue(observer);
+    });
+    this._reservationsObservable = new Observable((observer) => {
+      this.reservationOnValue(observer);
     });
   }
   throwError(error: any) {
@@ -146,7 +155,7 @@ export class FirebaseService {
     );
   }
 
-  private _attendanceObservable: Observable<Checkin>; //update type with proper type
+  private _attendanceObservable: Observable<Checkin>;
   public get attendanceObservable(): Observable<Checkin> {
     return this._attendanceObservable;
   }
@@ -158,6 +167,22 @@ export class FirebaseService {
       attendanceRef,
       (snapshot) => {
         console.log('onCheckin2');
+        observer.next(snapshot.val());
+      },
+      this.throwError
+    );
+  }
+
+  private _reservationsObservable: Observable<Reservations>;
+  public get reservationsObservable(): Observable<Reservations> {
+    return this._reservationsObservable;
+  }
+
+  private reservationOnValue(observer: Subscriber<Reservations>) {
+    const reservationRef = ref(this.db, '/reservations/');
+    onValue(
+      reservationRef,
+      (snapshot) => {
         observer.next(snapshot.val());
       },
       this.throwError

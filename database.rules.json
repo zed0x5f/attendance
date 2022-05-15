@@ -8,7 +8,7 @@
       ".read": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')",
       ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager' || auth.token.role == 'console')"
     },
-    "reservation": {
+    "reservations": {
       ".read": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')",
       ".write": "auth.uid != null && (auth.token.role == 'admin' || auth.token.role == 'manager')"
     }
