@@ -77,7 +77,15 @@ export class AttendanceReviewComponent implements OnInit {
         this.datesToShow.forEach((d: any) => {
           let checkin = attend[d][key];
           if (checkin) {
-            masTemp.tendies.push(JSON.stringify(checkin));
+            let checks = [];
+            for (const [key, value] of Object.entries(checkin)) {
+              let mDate = new Date();
+              mDate.setTime(value);
+              checks.push(
+                `${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
+              );
+            }
+            masTemp.tendies.push(JSON.stringify(checks));
           } else {
             masTemp.tendies.push(['no show']);
           }

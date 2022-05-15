@@ -6,3 +6,8 @@
     float: none;
   }
 }
+
+tr > td:not(:first-child):not(:last-child) {
+  // display: none;
+  background-color: white;
+}
