@@ -7,6 +7,7 @@ import {
   Reservations,
 } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
+import { Util } from 'src/app/service/util';
 
 type Tendies = {
   name: String;
@@ -44,9 +45,7 @@ export class AttendanceReviewComponent implements OnInit {
       //TODO pull meal data here
       this.datesToShow.forEach((e) => {
         //TODO add this to util function
-        let [year, month, day] = e.split('-').map((e) => parseInt(e));
-        month = month - 1;
-        let thisDay = new Date(year, month, day);
+        let thisDay = Util.getDateYYYY_MM_DD(e);
 
         let bld = [
           [8, 30],
@@ -82,7 +81,7 @@ export class AttendanceReviewComponent implements OnInit {
               let mDate = new Date();
               mDate.setTime(value);
               checks.push(
-                `${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
+                `day${mDate.getDate()}:${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
               );
             }
             masTemp.tendies.push(JSON.stringify(checks));

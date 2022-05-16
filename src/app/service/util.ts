@@ -40,6 +40,12 @@ export class Util {
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }
 
+  static getDateYYYY_MM_DD(input: string): Date {
+    let [year, month, day] = input.split('-').map((e) => parseInt(e));
+    month = month - 1;
+    return new Date(year, month, day);
+  }
+
   static throwError(error: any) {
     throw error;
   }

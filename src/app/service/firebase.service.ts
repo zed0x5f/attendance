@@ -161,13 +161,34 @@ export class FirebaseService {
   }
 
   private attendanceOnValue(observer: Subscriber<Checkin>) {
-    const attendanceRef = ref(this.db, 'checkin');
-    console.log('onCheckin1');
+    const checkinRef = ref(this.db, 'checkin');
+    // console.log('onCheckin1');
     onValue(
-      attendanceRef,
+      checkinRef,
       (snapshot) => {
-        console.log('onCheckin2');
+        // console.log('onCheckin2');
         observer.next(snapshot.val());
+        let v: Checkin = snapshot.val();
+        // console.log(v);
+        return;//todo fix fix later
+        
+        let upload: any = {};
+        for (const [dateKey, memberList] of Object.entries(v)) {
+          for (const [memberId, listOfTime] of Object.entries(memberList)) {
+            for (const [key2, timeStamp] of Object.entries(listOfTime)) {
+              if (Util.getDateYYYY_MM_DD(dateKey) != new Date(timeStamp)) {
+                console.log('error');
+                upload[Util.getYYYY_MM_DD(new Date(timeStamp))][memberId][
+                  key2
+                ] = timeStamp;
+              }
+            }
+          }
+        }
+        console.log(upload);
+        if (false) {
+          // const ref = ref(this.db,'')
+        }
       },
       this.throwError
     );
