@@ -19,6 +19,12 @@ type MealTime = {
   l: Date;
   d: Date;
 };
+
+type Tots = {
+  staff: number;
+  volunteer: number;
+  nrg: number;
+};
 @Component({
   selector: 'app-attendance-review',
   templateUrl: './attendance-review.component.html',
@@ -33,6 +39,7 @@ export class AttendanceReviewComponent implements OnInit {
   datesToShow: string[] = [];
   mealtimes: MealTime[] = [];
   attendDanceToShow: Tendies[] = [];
+  totals: Tots[] = [];
 
   ngOnInit(): void {
     combineLatest([
@@ -74,6 +81,9 @@ export class AttendanceReviewComponent implements OnInit {
         };
 
         this.datesToShow.forEach((d: any) => {
+          //each day
+          
+
           let checkin = attend[d][key];
           if (checkin) {
             let checks = [];

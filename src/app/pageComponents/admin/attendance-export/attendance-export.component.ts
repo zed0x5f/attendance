@@ -37,6 +37,9 @@ export class AttendanceExportComponent implements OnInit {
         'checkin key',
         'timestamp',
         'Date',
+        'Hours',
+        'Minutes',
+        'Seconds',
         'Full Name',
         'FirstName',
         'LastName',
@@ -48,12 +51,16 @@ export class AttendanceExportComponent implements OnInit {
         for (const [checkinKey, ms] of Object.entries(rowItemOfMember)) {
           try {
             const { firstName, lastName } = argMembers[memberIdKey];
+            let day = new Date(ms);
             this.tendies.push([
               dayKey,
               memberIdKey,
               checkinKey,
               ms,
-              new Date(ms).toDateString(),
+              day.toDateString(),
+              day.getHours(),
+              day.getMinutes(),
+              day.getSeconds(),
               `${firstName} ${lastName}`,
               firstName,
               lastName,
