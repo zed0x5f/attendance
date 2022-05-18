@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { deleteApp } from 'firebase/app';
 import { combineLatest } from 'rxjs';
 import {
   Checkin,
@@ -9,21 +10,34 @@ import {
 import { FirebaseService } from 'src/app/service/firebase.service';
 import { Util } from 'src/app/service/util';
 
+enum MealCode {
+  b = 'b',
+  l = 'l',
+  d = 'd',
+  none = 'none',
+}
+
 type Tendies = {
   name: String;
   tendies: any[];
 };
 
-type MealTime = {
+type MealTimes = {
   b: Date;
   l: Date;
   d: Date;
 };
+type MealCount = {
+  b: number;
+  l: number;
+  d: number;
+  none: number;
+};
 
 type Tots = {
-  staff: number;
-  volunteer: number;
-  nrg: number;
+  staff: MealCount;
+  volunteer: MealCount;
+  nrg: MealCount;
 };
 @Component({
   selector: 'app-attendance-review',
@@ -37,7 +51,7 @@ export class AttendanceReviewComponent implements OnInit {
   attendance: Checkin = {};
   reservations: Reservations = {};
   datesToShow: string[] = [];
-  mealtimes: MealTime[] = [];
+  mealtimes: MealTimes[] = [];
   attendDanceToShow: Tendies[] = [];
   totals: Tots[] = [];
 
@@ -57,17 +71,31 @@ export class AttendanceReviewComponent implements OnInit {
         let bld = [
           [8, 30],
           [12, 30],
-          [5, 30],
+          [17, 30],
         ].map((timeS) => {
           const [h, m] = timeS;
-          thisDay.setHours(h, m);
-          return thisDay;
+          let ref = new Date(thisDay);
+          ref.setHours(h, m);
+          return ref;
         });
 
-        this.mealtimes.push({
+        let todaysMealTime = {
           b: bld[0],
           l: bld[1],
           d: bld[2],
+        };
+        this.mealtimes.push(todaysMealTime);
+        let empty = {
+          b: 0,
+          l: 0,
+          d: 0,
+          none: 0,
+        };
+
+        this.totals.push({
+          nrg: Util.clone(empty),
+          staff: Util.clone(empty),
+          volunteer: Util.clone(empty),
         });
       });
 
@@ -75,32 +103,72 @@ export class AttendanceReviewComponent implements OnInit {
       this.attendance = attend;
       this.reservations = reservations;
       for (const [key, mMember] of Object.entries(memb)) {
-        let masTemp: Tendies = {
+        let personRow: Tendies = {
           name: mMember.firstName + ' ' + mMember.lastName,
           tendies: [],
         };
 
-        this.datesToShow.forEach((d: any) => {
+        this.datesToShow.forEach((d: any, todaysIndex: number) => {
           //each day
-          
 
           let checkin = attend[d][key];
           if (checkin) {
+            let counter: MealCount = {
+              b: 0,
+              l: 0,
+              d: 0,
+              none: 0,
+            };
             let checks = [];
             for (const [key, value] of Object.entries(checkin)) {
               let mDate = new Date();
               mDate.setTime(value);
+              // const { b, l, d } = this.mealtimes[todaysIndex];
+
+              for (const [mealCodeKey, mealTime] of Object.entries(
+                this.mealtimes[todaysIndex]
+              )) {
+                if (
+                  this.determinWhichMealCheckedInto(mealTime, new Date(value))
+                ) {
+                  counter[mealCodeKey as keyof MealCount] += 1;
+                }
+              }
               checks.push(
                 `day${mDate.getDate()}:${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
               );
             }
-            masTemp.tendies.push(JSON.stringify(checks));
-          } else {
-            masTemp.tendies.push(['no show']);
+            personRow.tendies.push(JSON.stringify(counter));
+            let totRef =
+              this.totals[todaysIndex][mMember.personType as keyof Tots];
+            totRef.b += counter.b;
+            totRef.l += counter.l;
+            totRef.d += counter.d;
+          } else {//else checkin
+            personRow.tendies.push(['no show']);
           }
         });
-        this.attendDanceToShow.push(masTemp);
+        this.attendDanceToShow.push(personRow);
       }
     });
+  }
+
+  determinWhichMealCheckedInto(
+    MealTime: Date,
+    checkin: Date,
+    deltaTime?: Date
+  ): Boolean {
+    if (deltaTime == undefined) {
+      deltaTime = new Date();
+      deltaTime.setHours(1);
+      deltaTime.setMinutes(30);
+    }
+    return (
+      Math.abs(MealTime.getTime() - checkin.getTime()) <=  60 * 60 * 1000
+    );
+  }
+
+  getMC(foo: MealCount, index: string) {
+    return foo[index as keyof MealCount];
   }
 }

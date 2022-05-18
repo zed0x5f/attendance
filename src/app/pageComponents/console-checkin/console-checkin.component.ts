@@ -94,8 +94,6 @@ export class ConsoleCheckinComponent implements OnInit {
     console.log('checking in', id);
     if (checkMember(id)) {
       try {
-        if (true) this.checkinSucess(id);
-        else
           this.fb.saveCheckin(id).then((value) => {
             console.log(value);
             //unshift inserts at the beging of an array
