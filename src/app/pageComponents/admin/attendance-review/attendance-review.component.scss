@@ -1,13 +1,51 @@
-.jakeScroll {
-  overflow-x: scroll;
-  white-space: nowrap;
-  tr > div {
-    display: inline-block;
-    float: none;
-  }
-}
-
+$firstColWidth: 200px;
 tr > td:not(:first-child):not(:last-child) {
   // display: none;
   background-color: white;
 }
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-top: 1px solid grey;
+  padding-left: $firstColWidth;
+}
+
+td,
+th {
+  margin: 0;
+  border: 1px solid grey;
+  white-space: nowrap;
+  border-top-width: 0px;
+}
+
+#tableWrapper {
+  width: 100%;
+  overflow-x: scroll;
+  margin-left: 5em;
+  overflow-y: visible;
+  padding: 0;
+}
+//#tableWrapper > table > tr:nth-child(5) > td:nth-child(1)
+
+tr > td:nth-child(1) {
+  // color: red;
+  position: absolute;
+  width: $firstColWidth;
+  left: 50px;
+  top: auto;
+  border-top-width: 1px;
+  background-color: white;
+  /*only relevant for first row*/
+  margin-top: -1px;
+  /*compensate for top border*/
+  :before {
+    content: "Row ";
+  }
+}
+
+// tr > td:not(:first-child) {
+//   margin-left: $firstColWidth;
+//   background: black;
+//   // letter-spacing: 1em;
+// }
