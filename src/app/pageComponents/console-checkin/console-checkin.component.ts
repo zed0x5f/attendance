@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { PlyrComponent } from 'ngx-plyr';
+import * as Plyr from 'plyr';
 import { FireBaseListDict, Member } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
 
@@ -25,8 +27,6 @@ export class ConsoleCheckinComponent implements OnInit {
 
       console.log(members);
     });
-    this.successAudio.load();
-    this.errorAudio.load();
   }
 
   value = '';
@@ -82,8 +82,7 @@ export class ConsoleCheckinComponent implements OnInit {
   error = false;
   errorText: string = '';
   success: Member[] = [];
-  successAudio = new Audio('../../../assets/sounds/sonic_ring.mp3');
-  errorAudio = new Audio('../../../assets/sounds/xp_error.mp3');
+
   saveCheckin(id: string, index?: number) {
     if (id == '') return;
     let checkMember = (id: string): boolean => {
@@ -94,6 +93,8 @@ export class ConsoleCheckinComponent implements OnInit {
     console.log('checking in', id);
     if (checkMember(id)) {
       try {
+        this.checkinSucess(id);
+        if (false)
           this.fb.saveCheckin(id).then((value) => {
             console.log(value);
             //unshift inserts at the beging of an array
@@ -110,7 +111,7 @@ export class ConsoleCheckinComponent implements OnInit {
   }
 
   checkinError(id: string) {
-    this.errorAudio.play();
+    this.errorPlay();
     this.errorText = `id:${id}   member:${this.members[id]}`;
     this.success = this.success.filter((e) => e.key != id);
   }
@@ -118,12 +119,37 @@ export class ConsoleCheckinComponent implements OnInit {
   checkinSucess(id: string, index?: number) {
     this.members[id].count! += 1;
     if (index != undefined) this.resultOfSearch[index].count! += 1;
-    this.successAudio.play();
+    this.successPlay();
     this.success.unshift(this.members[id]);
     // console.log(this.success);
   }
 
   closeSearchResults() {
     this.resultOfSearch = [];
+  }
+
+  @ViewChild('p1')
+  p1!: PlyrComponent;
+  @ViewChild('p2')
+  p2!: PlyrComponent;
+  audioSources: Plyr.Source[] = [
+    {
+      src: '../../../assets/sounds/sonic_ring.mp3',
+      type: 'audio/mp3',
+    },
+    {
+      src: '../../../assets/sounds/xp_error.mp3',
+      type: 'audio/mp3',
+    },
+  ];
+
+  successPlay() {
+    this.p1.player.currentTime = 0.0;
+    this.p1.player.play();
+  }
+
+  errorPlay() {
+    this.p2.player.currentTime = 0.0;
+    this.p2.player.play();
   }
 }

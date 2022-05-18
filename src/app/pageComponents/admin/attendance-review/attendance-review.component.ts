@@ -135,10 +135,12 @@ export class AttendanceReviewComponent implements OnInit {
                 }
               }
               checks.push(
-                `day${mDate.getDate()}:${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
+                `${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
               );
             }
-            personRow.tendies.push(JSON.stringify(counter));
+            personRow.tendies.push(
+              JSON.stringify(counter) + JSON.stringify(checks)
+            );
             let totRef =
               this.totals[todaysIndex][
                 mMember.personType.toLocaleLowerCase() as keyof Tots
@@ -166,7 +168,9 @@ export class AttendanceReviewComponent implements OnInit {
       deltaTime.setHours(1);
       deltaTime.setMinutes(30);
     }
-    return Math.abs(MealTime.getTime() - checkin.getTime()) <= 60 * 60 * 1000;
+    let tm = new Date(checkin);
+    tm.setHours(MealTime.getHours(), MealTime.getMinutes());
+    return Math.abs(tm.getTime() - checkin.getTime()) <= 2 * 60 * 60 * 1000;
   }
 
   getMC(foo: MealCount, index: string) {

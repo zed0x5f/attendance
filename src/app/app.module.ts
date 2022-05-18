@@ -1,4 +1,4 @@
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,7 +27,7 @@ import { ImportReservationsComponent } from './pageComponents/admin/import-reser
 import { MemberDietaryComponent } from './pageComponents/member-dietary/member-dietary.component';
 import { AttendanceReviewComponent } from './pageComponents/admin/attendance-review/attendance-review.component';
 import { AttendanceReviewCellComponent } from './attendance-review-cell/attendance-review-cell.component';
-
+import { PlyrModule } from 'ngx-plyr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +46,7 @@ import { AttendanceReviewCellComponent } from './attendance-review-cell/attendan
     ImportReservationsComponent,
     MemberDietaryComponent,
     AttendanceReviewComponent,
-    AttendanceReviewCellComponent
+    AttendanceReviewCellComponent,
   ],
   imports: [
     HttpClientModule,
@@ -60,9 +60,10 @@ import { AttendanceReviewCellComponent } from './attendance-review-cell/attendan
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
-    ],  
+    PlyrModule,
+  ],
   providers: [AuthService, FirebaseService, AuthTokenHttpInterceptorProvider],
   bootstrap: [AppComponent],
 })
