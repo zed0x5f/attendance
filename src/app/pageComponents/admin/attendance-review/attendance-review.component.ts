@@ -140,11 +140,14 @@ export class AttendanceReviewComponent implements OnInit {
             }
             personRow.tendies.push(JSON.stringify(counter));
             let totRef =
-              this.totals[todaysIndex][mMember.personType as keyof Tots];
+              this.totals[todaysIndex][
+                mMember.personType.toLocaleLowerCase() as keyof Tots
+              ];
             totRef.b += counter.b;
             totRef.l += counter.l;
             totRef.d += counter.d;
-          } else {//else checkin
+          } else {
+            //else checkin
             personRow.tendies.push(['no show']);
           }
         });
@@ -163,9 +166,7 @@ export class AttendanceReviewComponent implements OnInit {
       deltaTime.setHours(1);
       deltaTime.setMinutes(30);
     }
-    return (
-      Math.abs(MealTime.getTime() - checkin.getTime()) <=  60 * 60 * 1000
-    );
+    return Math.abs(MealTime.getTime() - checkin.getTime()) <= 60 * 60 * 1000;
   }
 
   getMC(foo: MealCount, index: string) {
