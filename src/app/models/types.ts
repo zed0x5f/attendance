@@ -110,6 +110,7 @@ export interface Member {
   lastName: string;
   personType: string;
   dietaryRestrions?: DietaryRestrion;
+  count?:number
   //todo store score here
 }
 

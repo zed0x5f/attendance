@@ -19,11 +19,14 @@ export class ConsoleCheckinComponent implements OnInit {
         try {
           this.members[key].key = key;
           this.members[key].fullName = value.firstName + ' ' + value.lastName;
+          this.members[key].count = 0;
         } catch (err) {}
       }
 
       console.log(members);
     });
+    this.successAudio.load();
+    this.errorAudio.load();
   }
 
   value = '';
@@ -79,7 +82,10 @@ export class ConsoleCheckinComponent implements OnInit {
   error = false;
   errorText: string = '';
   success: Member[] = [];
-  saveCheckin(id: string) {
+  successAudio = new Audio('../../../assets/sounds/sonic_ring.mp3');
+  errorAudio = new Audio('../../../assets/sounds/xp_error.mp3');
+  saveCheckin(id: string, index?: number) {
+    if (id == '') return;
     let checkMember = (id: string): boolean => {
       return this.members[id] != undefined;
     };
@@ -87,16 +93,14 @@ export class ConsoleCheckinComponent implements OnInit {
     //todo implent this component
     console.log('checking in', id);
     if (checkMember(id)) {
-      //save checkin
-      //11468
-      // let presucess = true;
-      // this.checkinSucess(id);
       try {
-        this.fb.saveCheckin(id).then((value) => {
-          console.log(value);
-          //unshift inserts at the beging of an array
-          this.checkinSucess(id);
-        });
+        if (true) this.checkinSucess(id);
+        else
+          this.fb.saveCheckin(id).then((value) => {
+            console.log(value);
+            //unshift inserts at the beging of an array
+            this.checkinSucess(id);
+          });
       } catch (err) {
         alert(err);
         this.checkinError(id);
@@ -108,13 +112,20 @@ export class ConsoleCheckinComponent implements OnInit {
   }
 
   checkinError(id: string) {
+    this.errorAudio.play();
     this.errorText = `id:${id}   member:${this.members[id]}`;
     this.success = this.success.filter((e) => e.key != id);
   }
 
-  checkinSucess(id: string) {
+  checkinSucess(id: string, index?: number) {
+    this.members[id].count! += 1;
+    if (index != undefined) this.resultOfSearch[index].count! += 1;
+    this.successAudio.play();
     this.success.unshift(this.members[id]);
-    console.log(this.success);
+    // console.log(this.success);
+  }
+
+  closeSearchResults() {
     this.resultOfSearch = [];
   }
 }

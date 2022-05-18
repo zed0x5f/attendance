@@ -22,20 +22,27 @@
       Search Here<br />
       <input #manual class="w-100" />
       <br />
-      <br />
+    </p>
+    <div class="d-flex justify-content-between">
       <button (click)="submit(manual)" type="button" class="btn btn-success">
         Search By Name Or Number Or Pin
       </button>
-    </p>
-    <!-- considered added just a pin serach -->
+      <button
+        *ngIf="resultOfSearch.length > 0"
+        (click)="closeSearchResults()"
+        class="bi-arrows-collapse btn-info btn"
+      ></button>
+    </div>
     <div
-      *ngFor="let m of resultOfSearch"
+      *ngFor="let m of resultOfSearch; let i = index"
       class="d-flex justify-content-between py-3 my-1 border border-info px-1 rounded"
     >
       <div>
         {{ m.fullName }}
       </div>
-      <div class="btn btn-success" (click)="saveCheckin(m.key!)">checkin</div>
+      <div class="btn btn-success" (click)="saveCheckin(m.key!, i)">
+        checkin
+      </div>
     </div>
   </div>
   <!-- right -->
