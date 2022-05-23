@@ -9,7 +9,7 @@ import {
   setPersistence,
 } from 'firebase/auth';
 import { Observable } from 'rxjs';
-import { Foo } from '../models/types';
+import { FooAuth } from '../models/types';
 import { FirebaseService } from './firebase.service';
 
 @Injectable({
@@ -31,52 +31,57 @@ export class AuthService {
     this.auth = getAuth(this.firebase.app);
     this.provider = new GoogleAuthProvider();
     this.isLoggedIn = JSON.parse(localStorage.getItem('user') + '') !== null;
-    console.log("logged in state ",this.isLoggedIn,JSON.parse(localStorage.getItem('user') + ''))
+    console.log(
+      'logged in state ',
+      this.isLoggedIn,
+      JSON.parse(localStorage.getItem('user') + '')
+    );
 
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-    this._authChange = new Observable((observer)=>{
-    this.observeAuthChange(observer);
-  });
-  this._LoggedInAuth = new Observable((observer)=>{
-    this._authChange.subscribe((foo)=>{
-      if(this.isLoggedIn)observer.next(this.getUserFoo());
-    })
-  })
+    this._authChange = new Observable((observer) => {
+      this.observeAuthChange(observer);
+    });
+    this._LoggedInAuth = new Observable((observer) => {
+      this._authChange.subscribe((foo) => {
+        if (this.isLoggedIn) observer.next(this.getUserFoo());
+      });
+    });
   }
-  private observeAuthChange(observer:any){
-    onAuthStateChanged(this.auth, (user) => {      
+  private observeAuthChange(observer: any) {
+    onAuthStateChanged(this.auth, (user) => {
       console.log('auth state has changed');
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        this.isLoggedIn = true;       
+        this.isLoggedIn = true;
       } else {
         localStorage.removeItem('user');
         this.isLoggedIn = false;
-      }      
+      }
       observer.next(this.getUserFoo());
     });
   }
 
-
-  private getUserFoo():Foo{
+  private getUserFoo(): FooAuth {
     return {
-      auth:this.auth,
-      currentUser:this.auth.currentUser
+      auth: this.auth,
+      currentUser: this.auth.currentUser,
     };
   }
-  
-  private _LoggedInAuth:Observable<Foo>;
-  public get LoggedInObservable():Observable<Foo>{
+
+  private _LoggedInAuth: Observable<FooAuth>;
+  public get LoggedInObservable(): Observable<FooAuth> {
     return this._LoggedInAuth;
   }
 
-  private _authChange:Observable<Foo>;
-  public get authChange(){return this._authChange}
+  private _authChange: Observable<FooAuth>;
+  public get authChange() {
+    return this._authChange;
+  }
   // Sign in with email/password
   SignIn(email: string, password: string) {
-    console.log('signing in');    
+    console.log('signing in');
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 

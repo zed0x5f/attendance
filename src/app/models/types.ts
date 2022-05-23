@@ -110,7 +110,7 @@ export interface Member {
   lastName: string;
   personType: string;
   dietaryRestrions?: DietaryRestrion;
-  count?:number
+  count?: number;
   //todo store score here
 }
 
@@ -179,7 +179,40 @@ export type Reservations = {
 };
 
 //todo rename
-export interface Foo {
+export interface FooAuth {
   auth: any;
   currentUser: any;
 }
+
+//attendance review page
+
+export enum MealCode {
+  b = 'b',
+  l = 'l',
+  d = 'd',
+  none = 'none',
+}
+
+export type Tendies = {
+  name: String;
+  tendies: any[];
+};
+
+export type MealTimes = {
+  b: Date;
+  l: Date;
+  d: Date;
+};
+
+export type MealCount = {
+  b: number;
+  l: number;
+  d: number;
+  none: number;
+};
+
+export type Totals = {
+  staff: MealCount;
+  volunteer: MealCount;
+  nrg: MealCount;
+};

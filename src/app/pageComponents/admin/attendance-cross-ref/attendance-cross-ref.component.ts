@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { deleteApp } from 'firebase/app';
 import { combineLatest } from 'rxjs';
 import {
-  Checkin,
   FireBaseListDict,
+  Member,
+  Checkin,
+  Reservations,
   MealCount,
   MealTimes,
-  Member,
-  Reservations,
   Tendies,
   Totals,
 } from 'src/app/models/types';
@@ -15,11 +14,11 @@ import { FirebaseService } from 'src/app/service/firebase.service';
 import { Util } from 'src/app/service/util';
 
 @Component({
-  selector: 'app-attendance-review',
-  templateUrl: './attendance-review.component.html',
-  styleUrls: ['./attendance-review.component.scss'],
+  selector: 'app-attendance-cross-ref',
+  templateUrl: './attendance-cross-ref.component.html',
+  styleUrls: ['./attendance-cross-ref.component.scss'],
 })
-export class AttendanceReviewComponent implements OnInit {
+export class AttendanceCrossRefComponent implements OnInit {
   constructor(private fb: FirebaseService) {}
 
   members: FireBaseListDict<Member> = {};

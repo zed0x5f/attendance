@@ -28,6 +28,8 @@ import { MemberDietaryComponent } from './pageComponents/member-dietary/member-d
 import { AttendanceReviewComponent } from './pageComponents/admin/attendance-review/attendance-review.component';
 import { AttendanceReviewCellComponent } from './attendance-review-cell/attendance-review-cell.component';
 import { PlyrModule } from 'ngx-plyr';
+import { AttendanceCrossRefComponent } from './pageComponents/admin/attendance-cross-ref/attendance-cross-ref.component';
+import { CrossRefReviewComponent } from './cross-ref-review/cross-ref-review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,8 @@ import { PlyrModule } from 'ngx-plyr';
     MemberDietaryComponent,
     AttendanceReviewComponent,
     AttendanceReviewCellComponent,
+    AttendanceCrossRefComponent,
+    CrossRefReviewComponent,
   ],
   imports: [
     HttpClientModule,

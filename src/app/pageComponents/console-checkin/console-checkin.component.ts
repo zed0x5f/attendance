@@ -24,8 +24,14 @@ export class ConsoleCheckinComponent implements OnInit {
           this.members[key].count = 0;
         } catch (err) {}
       }
-
       console.log(members);
+    });
+  }
+
+  ngAfterViewInit() {
+    [this.p1, this.p2].forEach((p) => {
+      p.player.play();
+      p.player.pause();
     });
   }
 
@@ -93,13 +99,11 @@ export class ConsoleCheckinComponent implements OnInit {
     console.log('checking in', id);
     if (checkMember(id)) {
       try {
-        this.checkinSucess(id);
-        if (false)
-          this.fb.saveCheckin(id).then((value) => {
-            console.log(value);
-            //unshift inserts at the beging of an array
-            this.checkinSucess(id);
-          });
+        this.fb.saveCheckin(id).then((value) => {
+          console.log(value);
+          //unshift inserts at the beging of an array
+          this.checkinSucess(id);
+        });
       } catch (err) {
         alert(err);
         this.checkinError(id);
@@ -144,12 +148,13 @@ export class ConsoleCheckinComponent implements OnInit {
   ];
 
   successPlay() {
-    this.p1.player.currentTime = 0.0;
+    // this.p1.player.currentTime = 0.0;
+    this.p1.player.restart();
     this.p1.player.play();
   }
 
   errorPlay() {
-    this.p2.player.currentTime = 0.0;
+    this.p2.player.restart();
     this.p2.player.play();
   }
 }
