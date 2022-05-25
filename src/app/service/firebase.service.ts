@@ -33,11 +33,10 @@ export class FirebaseService {
     this.app = initializeApp(environment.firebase);
     console.log('app', this.app);
     this.db = getDatabase(this.app);
-    //TODO these are too cold
+    //TODO these are too cold?
     this._myMembersObservable = new Observable((observer) => {
       this.memberOnValue(observer);
     });
-    console.log('create observable');
     this._attendanceObservable = new Observable((observer) => {
       this.attendanceOnValue(observer);
     });
@@ -77,11 +76,17 @@ export class FirebaseService {
         return;
       }
       // date = new Date(date);
-      upload[Util.getYYYY_MM_DD(date)][RegistrationId] = {
-        b: Breakfast,
-        l: Lunch,
-        d: Dinner,
-      };
+      try {
+        upload[Util.getYYYY_MM_DD(new Date(date))][RegistrationId] = {
+          b: Breakfast,
+          l: Lunch,
+          d: Dinner,
+        };
+      } catch (err) {
+        alert('problem with ' + JSON.stringify(row));
+        console.log(err, JSON.stringify(row));
+        return;
+      }
     });
     const myRef = ref(this.db, `/reservations/`);
     try {
@@ -103,8 +108,8 @@ export class FirebaseService {
       if (pin == undefined || pin == null || pin == '')
         pin = this.autoPin(EntityId);
       let newGuy = {
-        lastName: lastName,
-        firstName: firstName,
+        lastName: lastName.trim(),
+        firstName: firstName.trim(),
         personType: PersonType,
         email: Email,
         status: Status,
@@ -155,23 +160,39 @@ export class FirebaseService {
     );
   }
 
+  private attends: Checkin = {};
+  private attendsInitialize = false;
   private _attendanceObservable: Observable<Checkin>;
   public get attendanceObservable(): Observable<Checkin> {
     return this._attendanceObservable;
   }
 
   private attendanceOnValue(observer: Subscriber<Checkin>) {
-    const checkinRef = ref(this.db, 'checkin');
+    const today = Util.getYYYY_MM_DD(new Date());
+    const checkinRef = ref(this.db, '/checkin/' + today);
     // console.log('onCheckin1');
     onValue(
       checkinRef,
-      (snapshot) => {
+      async (snapshot) => {
+        let data: any = {};
+        if (!this.attendsInitialize) {
+          //possibly janky code but it runs like buttah
+          const checkinRef2 = ref(this.db, '/checkin');
+          let fullSnap = await get(checkinRef2);
+          this.attends = fullSnap.val();
+          this.attendsInitialize = false;
+        }
+        data[today] = snapshot.val();
+        data = {
+          ...this.attends,
+          ...data,
+        };
         // console.log('onCheckin2');
-        observer.next(snapshot.val());
+        observer.next(data);
         let v: Checkin = snapshot.val();
         // console.log(v);
-        return;//todo fix fix later
-        
+        return; //todo fix fix later
+
         let upload: any = {};
         for (const [dateKey, memberList] of Object.entries(v)) {
           for (const [memberId, listOfTime] of Object.entries(memberList)) {

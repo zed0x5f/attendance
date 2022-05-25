@@ -36,7 +36,7 @@ export class ImportUsersComponent implements OnInit {
 
   validateMyRow(row: string[]): boolean {
     if (row.length < 4) return false;
-    let acceptableMemberType = ['volunteer', 'staff', 'nrg']; //todo enumerate this jazz
+    let acceptableMemberType = ['volunteer', 'staff', 'nrg','kid']; //todo enumerate this jazz
     const [EntityId, LastName, FirstName, PersonType, Email, Status] = row;
     if (!acceptableMemberType.includes(PersonType)) return false;
     if (PersonType == 'staff') {

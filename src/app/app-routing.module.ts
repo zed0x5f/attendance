@@ -10,6 +10,7 @@ import { UsersComponent } from './users/users/users.component';
 import { MemberCrudComponent } from './pageComponents/admin/member-crud/member-crud.component';
 import { ImportReservationsComponent } from './pageComponents/admin/import-reservations/import-reservations.component';
 import { AttendanceReviewComponent } from './pageComponents/admin/attendance-review/attendance-review.component';
+import { AttendanceCrossRefComponent } from './pageComponents/admin/attendance-cross-ref/attendance-cross-ref.component';
 
 //helper function
 let makeRoute = (pathI: string, componentI: any) => {
@@ -25,6 +26,7 @@ const routes: Routes = [
   makeRoute('admin/import-reservations', ImportReservationsComponent),
   makeRoute('admin/members', MemberCrudComponent),
   makeRoute('admin/attendance-review', AttendanceReviewComponent),
+  makeRoute('admin/cross-refrence',AttendanceCrossRefComponent),
   // makeRoute('signin',SigninComponent)
   makeRoute('admin/users', UsersComponent),
   makeRoute('exports', AttendanceExportComponent),

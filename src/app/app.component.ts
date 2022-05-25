@@ -29,6 +29,7 @@ export class AppComponent {
     this.makeLink('/admin/import-members', 'Volunteer/id Upload'),
     this.makeLink('/admin/import-reservations', 'Reservation Upload'),
     this.makeLink('/admin/attendance-review', 'Attendance Review'),
+    this.makeLink('/admin/cross-refrence', 'Hot new page dropped!!'),
     this.makeLink('/exports', 'Export Page'),
     this.makeLink('/admin/users', 'User Management'),
     this.makeLink('/admin/members', 'Members Management'),

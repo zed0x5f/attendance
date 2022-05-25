@@ -20,7 +20,8 @@ export class ConsoleCheckinComponent implements OnInit {
       for (const [key, value] of Object.entries(this.members)) {
         try {
           this.members[key].key = key;
-          this.members[key].fullName = value.firstName + ' ' + value.lastName;
+          this.members[key].fullName =
+            value.firstName.trim() + ' ' + value.lastName.trim();
           this.members[key].count = 0;
         } catch (err) {}
       }

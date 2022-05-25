@@ -41,6 +41,9 @@ export class AttendanceCrossRefComponent implements OnInit {
       this.totals = [];
 
       let [memb, attend, reservations] = values;
+      this.members = memb;
+      this.attendance = attend;
+      this.reservations = reservations;
       this.datesToShow = Object.keys(attend);
 
       //TODO pull meal data here
@@ -65,76 +68,8 @@ export class AttendanceCrossRefComponent implements OnInit {
           d: bld[2],
         };
         this.mealtimes.push(todaysMealTime);
-        let empty = {
-          b: 0,
-          l: 0,
-          d: 0,
-          none: 0,
-        };
-
-        this.totals.push({
-          nrg: Util.clone(empty),
-          staff: Util.clone(empty),
-          volunteer: Util.clone(empty),
-        });
+        
       }); //end of for loop
-
-      this.members = memb;
-      this.attendance = attend;
-      this.reservations = reservations;
-      for (const [key, mMember] of Object.entries(memb)) {
-        let personRow: Tendies = {
-          name: mMember.firstName + ' ' + mMember.lastName,
-          tendies: [],
-        };
-
-        this.datesToShow.forEach((d: any, todaysIndex: number) => {
-          //each day
-
-          let checkin = attend[d][key];
-          if (checkin) {
-            let counter: MealCount = {
-              b: 0,
-              l: 0,
-              d: 0,
-              none: 0,
-            };
-            let checks = [];
-            for (const [key, value] of Object.entries(checkin)) {
-              let mDate = new Date();
-              mDate.setTime(value);
-              // const { b, l, d } = this.mealtimes[todaysIndex];
-
-              for (const [mealCodeKey, mealTime] of Object.entries(
-                this.mealtimes[todaysIndex]
-              )) {
-                if (
-                  this.determinWhichMealCheckedInto(mealTime, new Date(value))
-                ) {
-                  counter[mealCodeKey as keyof MealCount] += 1;
-                }
-              }
-              checks.push(
-                `${mDate.getHours()}:${mDate.getMinutes()}:${mDate.getSeconds()}`
-              );
-            }
-            personRow.tendies.push(
-              JSON.stringify(counter) + JSON.stringify(checks)
-            );
-            let totRef =
-              this.totals[todaysIndex][
-                mMember.personType.toLocaleLowerCase() as keyof Totals
-              ];
-            totRef.b += counter.b;
-            totRef.l += counter.l;
-            totRef.d += counter.d;
-          } else {
-            //else checkin
-            personRow.tendies.push(['no show']);
-          }
-        });
-        this.attendDanceToShow.push(personRow);
-      }
     });
   }
 

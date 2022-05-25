@@ -1,8 +1,8 @@
 $firstColWidth: 200px;
-tr > td:not(:first-child):not(:last-child) {
-  // display: none;
-  background-color: white;
-}
+// tr > td:not(:first-child):not(:last-child) {
+//   // display: none;
+//   background-color: white;
+// }
 
 table {
   border-collapse: separate;
@@ -35,7 +35,7 @@ tr > td:nth-child(1) {
   left: 50px;
   top: auto;
   border-top-width: 1px;
-  background-color: white;
+  background-color: lightgrey;
   /*only relevant for first row*/
   margin-top: -1px;
   /*compensate for top border*/
@@ -49,3 +49,16 @@ tr > td:nth-child(1) {
 //   background: black;
 //   // letter-spacing: 1em;
 // }
+$altBgColor: skyblue;
+$altColor: black;
+tr.heads:nth-child(6n - 1),
+tr.heads:nth-child(6n),
+tr.heads:nth-child(6n + 1) {
+  background-color: $altBgColor;
+  color: $altColor;
+}
+
+tr.body:nth-child(2n-1) {
+  background-color: $altBgColor;
+  color: $altColor;
+}

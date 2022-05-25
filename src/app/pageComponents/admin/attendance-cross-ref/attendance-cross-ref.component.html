@@ -7,40 +7,10 @@
   <table class="container jakeScroll m-0 py-0 pr-0">
     <tr class="">
       <td class="">Name</td>
-      <td class="" *ngFor="let d of datesToShow">{{ d }}</td>
+      <th class="" colspan="3" *ngFor="let d of datesToShow">{{ d }}</th>
     </tr>
-    <ng-container *ngFor="let mealC of ['b', 'l', 'd']">
-      <tr>
-        <td>
-          Full Totals <span class="text-uppercase">{{ mealC }}</span>
-        </td>
-        <td *ngFor="let t of totals">
-          {{
-            getMC(t.nrg, mealC) +
-              getMC(t.staff, mealC) +
-              getMC(t.volunteer, mealC)
-          }}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Staff + NRG Totals <span class="text-uppercase">{{ mealC }}</span>
-        </td>
-        <td *ngFor="let t of totals">
-          {{ getMC(t.nrg, mealC) + getMC(t.staff, mealC) }}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Volunteer Totals <span class="text-uppercase">{{ mealC }}</span>
-        </td>
-        <td *ngFor="let t of totals">
-          {{ getMC(t.volunteer, mealC) }}
-        </td>
-      </tr>
-    </ng-container>
 
-    <tr class="" *ngFor="let mas of attendDanceToShow">
+    <tr class="body" *ngFor="let mas of attendDanceToShow">
       <td class=".text-wrap">{{ mas.name }}</td>
       <td class="" *ngFor="let t of mas.tendies">
         {{ t }}
