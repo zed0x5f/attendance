@@ -8,7 +8,7 @@ import {
   MealTimes,
   Member,
   Reservations,
-  Tendies,
+  A_Tendies,
   Totals,
 } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
@@ -27,7 +27,7 @@ export class AttendanceReviewComponent implements OnInit {
   reservations: Reservations = {};
   datesToShow: string[] = [];
   mealtimes: MealTimes[] = [];
-  attendDanceToShow: Tendies[] = [];
+  attendDanceToShow: A_Tendies[] = [];
   totals: Totals[] = [];
 
   ngOnInit(): void {
@@ -84,7 +84,7 @@ export class AttendanceReviewComponent implements OnInit {
       this.attendance = attend;
       this.reservations = reservations;
       for (const [key, mMember] of Object.entries(memb)) {
-        let personRow: Tendies = {
+        let personRow: A_Tendies = {
           name: mMember.firstName + ' ' + mMember.lastName,
           tendies: [],
         };
@@ -110,7 +110,7 @@ export class AttendanceReviewComponent implements OnInit {
                 this.mealtimes[todaysIndex]
               )) {
                 if (
-                  this.determinWhichMealCheckedInto(mealTime, new Date(value))
+                  Util.determinWhichMealCheckedInto(mealTime, new Date(value))
                 ) {
                   counter[mealCodeKey as keyof MealCount] += 1;
                 }
@@ -137,21 +137,6 @@ export class AttendanceReviewComponent implements OnInit {
         this.attendDanceToShow.push(personRow);
       }
     });
-  }
-
-  determinWhichMealCheckedInto(
-    MealTime: Date,
-    checkin: Date,
-    deltaTime?: Date
-  ): Boolean {
-    if (deltaTime == undefined) {
-      deltaTime = new Date();
-      deltaTime.setHours(1);
-      deltaTime.setMinutes(30);
-    }
-    let tm = new Date(checkin);
-    tm.setHours(MealTime.getHours(), MealTime.getMinutes());
-    return Math.abs(tm.getTime() - checkin.getTime()) <= 2 * 60 * 60 * 1000;
   }
 
   getMC(foo: MealCount, index: string) {

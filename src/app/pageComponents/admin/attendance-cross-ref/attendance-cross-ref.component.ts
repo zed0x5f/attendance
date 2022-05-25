@@ -7,7 +7,7 @@ import {
   Reservations,
   MealCount,
   MealTimes,
-  Tendies,
+  A_Tendies,
   Totals,
 } from 'src/app/models/types';
 import { FirebaseService } from 'src/app/service/firebase.service';
@@ -24,9 +24,10 @@ export class AttendanceCrossRefComponent implements OnInit {
   members: FireBaseListDict<Member> = {};
   attendance: Checkin = {};
   reservations: Reservations = {};
+
   datesToShow: string[] = [];
   mealtimes: MealTimes[] = [];
-  attendDanceToShow: Tendies[] = [];
+  attendDanceToShow: A_Tendies[] = [];
   totals: Totals[] = [];
 
   ngOnInit(): void {
@@ -40,8 +41,8 @@ export class AttendanceCrossRefComponent implements OnInit {
       this.attendDanceToShow = [];
       this.totals = [];
 
-      let [memb, attend, reservations] = values;
-      this.members = memb;
+      let [membs, attend, reservations] = values;
+      this.members = membs;
       this.attendance = attend;
       this.reservations = reservations;
       this.datesToShow = Object.keys(attend);
@@ -68,8 +69,33 @@ export class AttendanceCrossRefComponent implements OnInit {
           d: bld[2],
         };
         this.mealtimes.push(todaysMealTime);
-        
       }); //end of for loop
+      for (const [id, member] of Object.entries(membs)) {
+        let cols: any[] = [];
+        this.datesToShow.forEach((d, todaysIndex) => {
+          let counter: MealCount = {
+            b: 0,
+            l: 0,
+            d: 0,
+            none: 0,
+          };
+          //we loop over each column and fill it with data we need
+          for (const [mealCodeKey, mealTime] of Object.entries(
+            this.mealtimes[todaysIndex]
+          )) {
+            // if (Util.determinWhichMealCheckedInto(mealTime, new Date(value))) {
+            //   counter[mealCodeKey as keyof MealCount] += 1;
+            // }
+          }
+          cols.push({
+            checkin: attend[d as keyof Checkin][id],
+          });
+        });
+        this.attendDanceToShow.push({
+          name: member.firstName.trim() + ' ' + member.lastName.trim(),
+          tendies: cols,
+        });
+      }
     });
   }
 

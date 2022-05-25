@@ -49,4 +49,17 @@ export class Util {
   static throwError(error: any) {
     throw error;
   }
+
+  static determinWhichMealCheckedInto(
+    MealTime: Date,
+    checkin: Date,
+    deltaTime?: Number
+  ): Boolean {
+    if (deltaTime == undefined) {
+      deltaTime = 2 * 60 * 60 * 1000; //two hours
+    }
+    let tm = new Date(checkin);
+    tm.setHours(MealTime.getHours(), MealTime.getMinutes());
+    return Math.abs(tm.getTime() - checkin.getTime()) <= deltaTime;
+  }
 }

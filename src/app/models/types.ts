@@ -193,7 +193,7 @@ export enum MealCode {
   none = 'none',
 }
 
-export type Tendies = {
+export type A_Tendies = {
   name: String;
   tendies: any[];
 };

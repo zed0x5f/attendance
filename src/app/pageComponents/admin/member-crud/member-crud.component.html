@@ -18,7 +18,15 @@
     <div class="col">{{ m.lastName }}</div>
     <div class="col">{{ m.pin }}</div>
     <div class="col">{{ m.personType }}</div>
-    <div class="col">{{ m.key }}</div>
+    <div class="col">
+      <a
+        href="https://www.webarcode.com/barcode/image.php?code={{
+          m.key
+        }}&type=C39&xres=1&height=50&width=110&font=3&output=png&style=197"
+        >{{ m.key }}</a
+      >
+    </div>
+
     <div class="col">{{ m.status }}</div>
     <div class="col">
       <div class="btn btn-success" (click)="edit(m.key + '')">Edit</div>
