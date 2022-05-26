@@ -77,12 +77,13 @@ export class AttendanceReviewComponent implements OnInit {
           nrg: Util.clone(empty),
           staff: Util.clone(empty),
           volunteer: Util.clone(empty),
+          kid: Util.clone(empty),
         });
       }); //end of for loop
 
       this.members = memb;
       this.attendance = attend;
-      this.reservations = reservations;
+      // this.reservations = reservations;
       for (const [key, mMember] of Object.entries(memb)) {
         let personRow: A_Tendies = {
           name: mMember.firstName + ' ' + mMember.lastName,

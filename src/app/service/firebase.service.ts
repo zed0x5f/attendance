@@ -61,11 +61,13 @@ export class FirebaseService {
   }
 
   uploadReservations(data: string[][]) {
+    console.log(data);
     let upload: any = {};
     data.forEach((row: any) => {
+      if (row.length <= 2) return;
       let [RegistrationId, date, Breakfast, Lunch, Dinner] = row;
 
-      let toNum = (a: string) => parseInt(a);
+      let toNum = (a: string) => (isNaN(parseInt(a)) ? null : parseInt(a));
       try {
         Breakfast = toNum(Breakfast);
         Lunch = toNum(Lunch);
@@ -77,13 +79,20 @@ export class FirebaseService {
       }
       // date = new Date(date);
       try {
+        //should i use with?
+        if (date == undefined) {
+          console.log(row);
+        }
+
+        if (upload[Util.getYYYY_MM_DD(new Date(date))] == undefined)
+          upload[Util.getYYYY_MM_DD(new Date(date))] = {};
         upload[Util.getYYYY_MM_DD(new Date(date))][RegistrationId] = {
           b: Breakfast,
           l: Lunch,
           d: Dinner,
         };
       } catch (err) {
-        alert('problem with ' + JSON.stringify(row));
+        // alert('problem with ' + JSON.stringify(row));
         console.log(err, JSON.stringify(row));
         return;
       }
@@ -91,7 +100,9 @@ export class FirebaseService {
     const myRef = ref(this.db, `/reservations/`);
     try {
       console.log('upload', upload);
-      if (upload && Object.keys(upload).length !== 0) update(myRef, upload);
+      if (upload && Object.keys(upload).length !== 0)
+        //TODO REMOVE************************************************************************
+        update(myRef, upload);
     } catch (err) {
       console.log(err);
     }

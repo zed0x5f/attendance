@@ -215,4 +215,5 @@ export type Totals = {
   staff: MealCount;
   volunteer: MealCount;
   nrg: MealCount;
+  kid: MealCount; //or is it a squid
 };
