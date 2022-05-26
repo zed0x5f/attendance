@@ -79,20 +79,59 @@ export class AttendanceCrossRefComponent implements OnInit {
             d: 0,
             none: 0,
           };
+          // const dateKey = Util.getYYYY_MM_DD(new Date(d))
           //we loop over each column and fill it with data we need
-          for (const [mealCodeKey, mealTime] of Object.entries(
-            this.mealtimes[todaysIndex]
-          )) {
-            // if (Util.determinWhichMealCheckedInto(mealTime, new Date(value))) {
-            //   counter[mealCodeKey as keyof MealCount] += 1;
-            // }
+          let at = attend[d as keyof Checkin][id];
+          if (at) {
+            //get attends and format
+            for (const [k, v] of Object.entries(at)) {
+              for (const [mealCodeKey, mealTime] of Object.entries(
+                this.mealtimes[todaysIndex]
+              )) {
+                if (Util.determinWhichMealCheckedInto(mealTime, new Date(v))) {
+                  counter[mealCodeKey as keyof MealCount] += 1;
+                }
+              }
+            }
           }
+          let resCount: MealCount;
+          let reservationDay = reservations[d as keyof Reservations];
+          if (reservationDay && id in reservationDay) {
+            resCount = { ...reservationDay[id], none: 0 };
+          } else {
+            if (member.personType == 'volunteer') {
+              resCount = {
+                b: 1,
+                l: 1,
+                d: 1,
+                none: 0,
+              };
+            } else
+              resCount = {
+                b: 0,
+                l: 0,
+                d: 0,
+                none: 0,
+              };
+          }
+          let classes: any[] = [];
+          const compare = (a: any, b: any) => parseInt(a) - parseInt(b);
+          
           cols.push({
-            checkin: attend[d as keyof Checkin][id],
+            count: counter,
+            reservations: resCount,
+            classes: {
+              b: compare(counter.b, resCount.b),
+              l: compare(counter.l, resCount.l),
+              d: compare(counter.d, resCount.d),
+            },
           });
         });
+
+        member.fullName =
+          member.firstName.trim() + ' ' + member.lastName.trim();
         this.attendDanceToShow.push({
-          name: member.firstName.trim() + ' ' + member.lastName.trim(),
+          self: member,
           tendies: cols,
         });
       }

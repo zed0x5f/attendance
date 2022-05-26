@@ -41,7 +41,7 @@
     </ng-container>
 
     <tr class="body" *ngFor="let mas of attendDanceToShow">
-      <td class=".text-wrap">{{ mas.name }}</td>
+      <td class=".text-wrap">{{ mas.self.fullName }}</td>
       <td class="" *ngFor="let t of mas.tendies">
         {{ t }}
       </td>

@@ -85,8 +85,9 @@ export class AttendanceReviewComponent implements OnInit {
       this.attendance = attend;
       // this.reservations = reservations;
       for (const [key, mMember] of Object.entries(memb)) {
+        mMember.fullName = mMember.firstName + ' ' + mMember.lastName;
         let personRow: A_Tendies = {
-          name: mMember.firstName + ' ' + mMember.lastName,
+          self: mMember,
           tendies: [],
         };
 

@@ -194,8 +194,9 @@ export enum MealCode {
 }
 
 export type A_Tendies = {
-  name: String;
+  self: Member;
   tendies: any[];
+  classes?: any;
 };
 
 export type MealTimes = {

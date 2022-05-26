@@ -7,13 +7,24 @@
   <table class="container jakeScroll m-0 py-0 pr-0">
     <tr class="">
       <td class="">Name</td>
-      <th class="" colspan="3" *ngFor="let d of datesToShow">{{ d }}</th>
+      <th class="" colspan="1" *ngFor="let d of datesToShow">{{ d }}</th>
     </tr>
 
     <tr class="body" *ngFor="let mas of attendDanceToShow">
-      <td class=".text-wrap">{{ mas.name }}</td>
+      <td class="py-1 d-flex justify-content-between">
+        <div>{{ mas.self.fullName }}</div>
+        <div class="text-capitalize">{{ mas.self.personType }}</div>
+      </td>
       <td class="" *ngFor="let t of mas.tendies">
-        {{ t }}
+        <div class="d-flex">
+          <div
+            class="px-2 py-1"
+            *ngFor="let mc of ['b', 'l', 'd']"
+            [ngClass]="{ problem: t.classes[mc] != 0 }"
+          >
+            {{ mc }}:{{ t.count[mc] }}:{{ t.reservations[mc] }}
+          </div>
+        </div>
       </td>
     </tr>
   </table>

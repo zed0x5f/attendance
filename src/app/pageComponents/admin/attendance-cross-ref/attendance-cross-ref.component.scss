@@ -39,9 +39,6 @@ tr > td:nth-child(1) {
   /*only relevant for first row*/
   margin-top: -1px;
   /*compensate for top border*/
-  :before {
-    content: "Row ";
-  }
 }
 
 // tr > td:not(:first-child) {
@@ -61,4 +58,10 @@ tr.heads:nth-child(6n + 1) {
 td.body:nth-child(2n) {
   background-color: $altBgColor;
   color: $altColor;
+}
+
+.problem {
+  background-color: red;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
 }
