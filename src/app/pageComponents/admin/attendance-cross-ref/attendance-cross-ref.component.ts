@@ -108,15 +108,15 @@ export class AttendanceCrossRefComponent implements OnInit {
               };
             } else
               resCount = {
-                b: 0,
-                l: 0,
-                d: 0,
+                b: NaN,
+                l: NaN,
+                d: NaN,
                 none: 0,
               };
           }
           let classes: any[] = [];
           const compare = (a: any, b: any) => parseInt(a) - parseInt(b);
-          
+
           cols.push({
             count: counter,
             reservations: resCount,
