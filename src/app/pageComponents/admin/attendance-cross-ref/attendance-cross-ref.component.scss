@@ -28,7 +28,7 @@ th {
 }
 //#tableWrapper > table > tr:nth-child(5) > td:nth-child(1)
 
-tr > td:nth-child(1) {
+tr:nth-child(n + 1) > td:nth-child(1) {
   // color: red;
   position: absolute;
   width: $firstColWidth;
@@ -40,6 +40,11 @@ tr > td:nth-child(1) {
   margin-top: -1px;
   /*compensate for top border*/
 }
+
+// tr:nth-child(1) {
+//   position: absolute;
+//   top: auto;
+// }
 
 // tr > td:not(:first-child) {
 //   margin-left: $firstColWidth;
@@ -62,6 +67,12 @@ td.body:nth-child(2n) {
 
 .problem {
   background-color: red;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.perfect {
+  background-color: green;
   color: white;
   text-shadow: 2px 2px 4px #000000;
 }

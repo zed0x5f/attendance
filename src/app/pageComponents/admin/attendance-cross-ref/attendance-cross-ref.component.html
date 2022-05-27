@@ -23,9 +23,16 @@
           <div
             class="px-2 py-1 w-100"
             *ngFor="let mc of ['b', 'l', 'd']"
-            [ngClass]="{ problem: t.classes[mc] != 0 }"
+            [ngClass]="{
+              problem: t.classes[mc] != 0,
+              perfect: t.classes[mc] == 0
+            }"
           >
-            {{ mc }}:{{ t.count[mc] }}:{{ t.reservations[mc] }}
+            {{ mc }}:{{ t.count[mc] }}:{{
+              isNan(t.reservations[mc]) || t.reservations[mc] == ""
+                ? "N/A"
+                : t.reservations[mc]
+            }}
           </div>
         </div>
       </td>

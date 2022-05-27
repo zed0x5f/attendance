@@ -156,4 +156,8 @@ export class AttendanceCrossRefComponent implements OnInit {
   getMC(foo: MealCount, index: string) {
     return foo[index as keyof MealCount];
   }
+
+  isNan(input:number):boolean{
+    return isNaN(input);
+  }
 }
