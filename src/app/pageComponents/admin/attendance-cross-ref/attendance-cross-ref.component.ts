@@ -81,6 +81,7 @@ export class AttendanceCrossRefComponent implements OnInit {
           };
           // const dateKey = Util.getYYYY_MM_DD(new Date(d))
           //we loop over each column and fill it with data we need
+          if (attend[d as keyof Checkin] == null) return;
           let at = attend[d as keyof Checkin][id];
           if (at) {
             //get attends and format
@@ -157,7 +158,7 @@ export class AttendanceCrossRefComponent implements OnInit {
     return foo[index as keyof MealCount];
   }
 
-  isNan(input:number):boolean{
+  isNan(input: number): boolean {
     return isNaN(input);
   }
 }

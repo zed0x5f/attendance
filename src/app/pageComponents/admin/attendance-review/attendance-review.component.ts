@@ -29,6 +29,7 @@ export class AttendanceReviewComponent implements OnInit {
   mealtimes: MealTimes[] = [];
   attendDanceToShow: A_Tendies[] = [];
   totals: Totals[] = [];
+  exportData: string[][] = [];
 
   ngOnInit(): void {
     combineLatest([
@@ -94,7 +95,7 @@ export class AttendanceReviewComponent implements OnInit {
 
         this.datesToShow.forEach((d: any, todaysIndex: number) => {
           //each day
-
+          if (attend[d] == null) return;
           let checkin = attend[d][key];
           if (checkin) {
             let counter: MealCount = {
@@ -134,11 +135,21 @@ export class AttendanceReviewComponent implements OnInit {
             totRef.d += counter.d;
           } else {
             //else checkin
-            personRow.tendies.push(['no show']);
+            personRow.tendies.push('no show');
           }
         });
         this.attendDanceToShow.push(personRow);
       }
+      //format the data to go into the csv download
+      this.exportData = [['Name', ...this.datesToShow]];
+      this.attendDanceToShow.forEach((e) => {
+        let temp = [e.self.fullName!];
+        e.tendies.forEach((t) => {
+          temp.push(JSON.stringify(t));
+        });
+        this.exportData.push(temp);
+      });
+      console.log(this.exportData);
     });
   }
 
