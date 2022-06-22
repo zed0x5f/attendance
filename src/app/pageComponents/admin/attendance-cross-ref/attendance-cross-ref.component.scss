@@ -8,7 +8,6 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   border-top: 1px solid grey;
-  padding-left: $firstColWidth;
 }
 
 td,
@@ -20,11 +19,11 @@ th {
 }
 
 #tableWrapper {
-  width: 100%;
   overflow-x: scroll;
-  margin-left: 5em;
   overflow-y: visible;
   padding: 0;
+  margin-left: -1 * $firstColWidth;
+  // position: absolute;
 }
 //#tableWrapper > table > tr:nth-child(5) > td:nth-child(1)
 

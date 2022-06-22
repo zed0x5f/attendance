@@ -2,9 +2,11 @@
   current assumption is the is b.l.d. for everyday while we do not have the meal
   schedule imported
 </p>
-
-<div id="tableWrapper" class="m-0 p-0">
-  <table class="container jakeScroll m-0 py-0 pr-0">
+<download-csv [fileName]="'Cross Refrence export'" [data]="exportData"
+  >Cross Refrence Report download</download-csv
+>
+<div id="tableWrapper" class="m-0 p-0 vw-100">
+  <table class="jakeScroll m-0 py-0 pr-0">
     <tr class="">
       <td class="">Name</td>
       <th colspan="1" *ngFor="let d of datesToShow">

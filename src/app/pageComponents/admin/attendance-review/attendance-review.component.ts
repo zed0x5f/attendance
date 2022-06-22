@@ -32,6 +32,7 @@ export class AttendanceReviewComponent implements OnInit {
   exportData: string[][] = [];
 
   ngOnInit(): void {
+    let timerStart = Date.now();
     combineLatest([
       this.fb.myMembersObservable,
       this.fb.attendanceObservable,
@@ -150,6 +151,7 @@ export class AttendanceReviewComponent implements OnInit {
         this.exportData.push(temp);
       });
       console.log(this.exportData);
+      console.log('time delay', Date.now() - timerStart);
     });
   }
 

@@ -26,11 +26,14 @@ export class AttendanceCrossRefComponent implements OnInit {
   reservations: Reservations = {};
 
   datesToShow: string[] = [];
-  mealtimes: MealTimes[] = [];
   attendDanceToShow: A_Tendies[] = [];
+  mealtimes: MealTimes[] = [];
   totals: Totals[] = [];
 
+  exportData: string[][] = [];
+
   ngOnInit(): void {
+    let timerStart = Date.now();
     combineLatest([
       this.fb.myMembersObservable,
       this.fb.attendanceObservable,
@@ -136,6 +139,38 @@ export class AttendanceCrossRefComponent implements OnInit {
           tendies: cols,
         });
       }
+      //Not a comment in sight just code being code
+      this.attendDanceToShow.sort((a, b) =>
+        a.self.personType.localeCompare(b.self.personType)
+      );
+
+      this.exportData = [
+        ['', 'Dates ->'],
+        ['name', 'Person Type'],
+      ];
+      this.datesToShow.forEach((e) => {
+        this.exportData[0].push(e, '', '', '', '', '');
+        this.exportData[1].push(
+          'B',
+          'reservation',
+          'L',
+          'reservation',
+          'D',
+          'reservation'
+        );
+      });
+      this.attendDanceToShow.forEach((e) => {
+        let row: string[] = [e.self.fullName!, e.self.personType];
+        console.log(e.tendies[0]);
+        e.tendies.forEach((b) => {
+          ['b', 'l', 'd'].forEach((mealCode) => {
+            row.push(b.count[mealCode], b.reservations[mealCode]);
+          });
+        });
+        this.exportData.push(row);
+      });
+
+      console.log('time delay', Date.now() - timerStart);
     });
   }
 
